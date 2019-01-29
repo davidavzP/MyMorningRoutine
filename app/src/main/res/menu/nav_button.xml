@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:icon="@drawable/ic_newtask_black_24dp"
+        android:title="@string/nav_newTask" />
+    <item
+        android:icon="@drawable/ic_newdeadline_black_24dp"
+        android:title="@string/nav_newDeadline" />
+    <item
+        android:icon="@drawable/ic_menu_black_24dp"
+        android:title="@string/nav_myWeek" />
+</menu>
