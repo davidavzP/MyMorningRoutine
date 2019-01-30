@@ -3,7 +3,9 @@
     <string name="nav_newTask">New Task</string>
     <string name="nav_newDeadline">New Deadline</string>
     <string name="nav_myWeek">My Week</string>
-    <string name="_8_10">8:10</string>
     <string name="the_deadline">THE DEADLINE!</string>
-    <string name="_8_10">8:10</string>
+    <string name="textview">textView</string>
+    <string name="texttime">TextTime</string>
+
+
 </resources>

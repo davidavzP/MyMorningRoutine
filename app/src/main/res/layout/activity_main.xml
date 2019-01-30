@@ -6,43 +6,22 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <EditText
-        android:id="@+id/editTime"
-        android:layout_width="196dp"
-        android:layout_height="49dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="43dp"
-        android:layout_marginRight="43dp"
-        android:layout_marginBottom="11dp"
-        android:ems="10"
-        android:hint="@string/_8_10"
-        android:importantForAutofill="no"
-        android:inputType="time"
-        android:selectAllOnFocus="false"
-        android:singleLine="false"
-        android:text="@string/_8_10"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textStyle="bold|italic"
-        app:layout_constraintBottom_toTopOf="@+id/listView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/textView"
-        android:layout_width="307dp"
-        android:layout_height="57dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="328dp"
+        android:layout_height="63dp"
+        android:layout_marginStart="9dp"
+        android:layout_marginLeft="9dp"
         android:layout_marginBottom="8dp"
-        android:text="@string/the_deadline"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:text="@string/textview"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="30sp"
+        android:typeface="normal"
+        android:visibility="visible"
+        app:fontFamily="sans-serif-black"
         app:layout_constraintBottom_toTopOf="@+id/listView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:text="THE DEADLINE!" />
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottomNavigationView"
@@ -61,7 +40,7 @@
     <ListView
         android:id="@+id/listView"
         android:layout_width="584dp"
-        android:layout_height="838dp"
+        android:layout_height="694dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="86dp"
@@ -74,5 +53,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/textTime"
+        android:layout_width="249dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginRight="6dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/texttime"
+        android:textAllCaps="true"
+        android:textColor="@android:color/holo_purple"
+        android:textSize="18sp"
+        android:textStyle="bold|italic"
+        android:typeface="serif"
+        app:fontFamily="sans-serif-smallcaps"
+        app:layout_constraintBottom_toTopOf="@+id/listView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        tools:text="Time Remaining" />
 
 </android.support.constraint.ConstraintLayout>
