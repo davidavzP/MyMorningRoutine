@@ -1,10 +1,14 @@
 package com.example.mymorningroutine;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.internal.BottomNavigationMenu;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,7 +22,10 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView textView;
     private TextView timeText;
+    private MenuItem nav_home;
 
+    private View navigationMenu;
+    private Button testPop;
 
 
 
@@ -34,6 +41,16 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+        navigationMenu = findViewById(R.id.bottomNav);
+        testPop = findViewById(R.id.testPop);
+
+        testPop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent popup = new Intent(MainActivity.this, PopnewTask.class);
+                startActivity(popup);
+            }
+        });
 
 
 
