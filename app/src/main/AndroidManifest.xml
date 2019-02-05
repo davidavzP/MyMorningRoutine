@@ -16,10 +16,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PopnewTask"
-            android:theme = "@style/AppTheme.CustomTheme">
+        <activity
+            android:name=".popupeditmenu.Popup_newTask"
+            android:theme="@style/AppTheme.CustomTheme"></activity>
+        <activity
+            android:name=".popupeditmenu.Popup_newDeadline"
+            android:theme="@style/AppTheme.CustomTheme"></activity>
+        <activity
+            android:name=".popupeditmenu.Popup_myWeek"
+            android:theme="@style/AppTheme.CustomTheme"></activity>
 
-        </activity>
     </application>
 
 </manifest>

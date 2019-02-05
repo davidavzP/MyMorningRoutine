@@ -1,10 +1,12 @@
-package com.example.mymorningroutine;
+package com.example.mymorningroutine.popupeditmenu;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 
-public class PopnewTask extends Activity {
+import com.example.mymorningroutine.R;
+
+public class Popup_newTask extends Activity {
 
      @Override
      protected void onCreate(Bundle savedInstanceState) {

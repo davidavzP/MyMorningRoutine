@@ -2,31 +2,29 @@ package com.example.mymorningroutine;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.internal.BottomNavigationMenu;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.mymorningroutine.popupeditmenu.Popup_myWeek;
+import com.example.mymorningroutine.popupeditmenu.Popup_newDeadline;
+import com.example.mymorningroutine.popupeditmenu.Popup_newTask;
 
 import java.util.ArrayList;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener{
 
     private ListView listView;
 
     private TextView textView;
     private TextView timeText;
-    private MenuItem nav_home;
-
-    private View navigationMenu;
-    private Button testPop;
-
 
 
     @Override
@@ -34,28 +32,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //TODO: make deadline and time not just textViews
         textView = findViewById(R.id.textView);
         textView.setText("THE DEADLINE!");
         timeText = findViewById(R.id.textTime);
         timeText.setText("TIME REMAINING");
 
+        createlistView();
 
+    }
 
-        navigationMenu = findViewById(R.id.bottomNav);
-        testPop = findViewById(R.id.testPop);
-
-        testPop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent popup = new Intent(MainActivity.this, PopnewTask.class);
-                startActivity(popup);
-            }
-        });
-
-
-
-
-
+    public void createlistView(){
         listView = (ListView)findViewById(R.id.listView);
 
         final ArrayList<String> test = new ArrayList<>();
@@ -78,9 +65,41 @@ public class MainActivity extends AppCompatActivity {
         });
         //end used code by: Ayaz Qureshi
 
+    }
 
 
+    public void showPopup(View view){
+        PopupMenu popupMenu = new PopupMenu(this, view);
+        popupMenu.setOnMenuItemClickListener(this);
+        popupMenu.inflate(R.menu.nav_button);
+        popupMenu.show();
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.nav_newTask:
+                startpopupactivity(Popup_newTask.class);
+                 return true;
+            case R.id.nav_newDeadline:
+              startpopupactivity(Popup_newDeadline.class);
+                return true;
+            case R.id.nav_myWeek:
+                startpopupactivity(Popup_myWeek.class);
+                return true;
+            default:
+                return false;
+
+        }
+
+    }
+
+    private void startpopupactivity(Class popUpClass) {
+        Intent popup_new_task = new Intent(MainActivity.this, popUpClass);
+        startActivity(popup_new_task);
 
 
     }
+
+
 }
