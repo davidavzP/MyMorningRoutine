@@ -10,18 +10,19 @@
     <TextView
         android:id="@+id/textView3"
         android:layout_width="201dp"
-        android:layout_height="211dp"
+        android:layout_height="47dp"
         android:layout_marginStart="200dp"
         android:layout_marginLeft="200dp"
         android:layout_marginTop="435dp"
         android:layout_marginEnd="199dp"
         android:layout_marginRight="199dp"
         android:layout_marginBottom="378dp"
-        android:text="TESTING"
+        android:text="NEW TASK"
         android:textSize="36sp"
         android:typeface="sans"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </android.support.constraint.ConstraintLayout>

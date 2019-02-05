@@ -12,7 +12,7 @@ import com.example.mymorningroutine.R;
 public class Popup_myWeek extends Activity {
 
 
-    
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
