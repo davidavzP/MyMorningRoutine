@@ -1,55 +1,48 @@
 package com.example.mymorningroutine.popupeditmenu;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.Toast;
 
 import com.example.mymorningroutine.R;
 
-public class Popup_myWeek extends Activity {
 
-
+public class Popup_myWeek extends DialogFragment {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.pop_my_week);
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View view = inflater.inflate(R.layout.popup_my_week, null);
+        builder.setView(view)
+                .setTitle("My Week")
+                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                })
+                .setPositiveButton("done", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
 
 
 
-        setDisplayBoundsDefault();
-    }
 
+        return builder.create();
 
-
-    public void setDisplayBoundsDefault(){
-        DisplayMetrics dm = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(dm);
-
-        int width = dm.widthPixels;
-        int height = dm.heightPixels;
-
-        getWindow().setLayout((int)(width*.8), (int)(height*.8));
-
-
-    }
-
-    //TODO: implement CheckBox Methods For Day of the Week
-    public void onCheckboxClicked(View view) {
-        boolean checked = ((CheckBox) view).isChecked();
-
-        switch (view.getId()){
-            case R.id.check_Monday:
-                if(checked){
-                    System.out.println("Monday Checked");
-                }else{
-                    System.out.println("Monday not Checked");
-                }
-        }
 
 
 

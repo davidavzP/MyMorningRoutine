@@ -1,25 +1,46 @@
 package com.example.mymorningroutine.popupeditmenu;
 
-import android.app.Activity;
+
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
+import android.support.v4.app.DialogFragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.EditText;
 
 import com.example.mymorningroutine.R;
 
-public class Popup_newTask extends Activity {
 
-     @Override
-     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.pop_new_task);
+public class Popup_newTask extends DialogFragment {
+    private EditText newTaskname;
+    private EditText newTasktime;
 
-         DisplayMetrics dm = new DisplayMetrics();
-         getWindowManager().getDefaultDisplay().getMetrics(dm);
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-         int width = dm.widthPixels;
-         int height = dm.heightPixels;
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View view = inflater.inflate(R.layout.popup_new_task, null);
+        builder.setView(view)
+                .setTitle("Create New Task")
+                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
 
-         getWindow().setLayout((int)(width*.8), (int)(height*.8));
+                    }
+                })
+                .setPositiveButton("add", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+        newTaskname = view.findViewById(R.id.edit_newTask);
+        newTasktime = view.findViewById(R.id.edit_newTaskTime);
+        return builder.create();
 
     }
 }

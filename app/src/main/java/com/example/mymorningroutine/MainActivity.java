@@ -19,12 +19,13 @@ import com.example.mymorningroutine.popupeditmenu.Popup_newTask;
 import java.util.ArrayList;
 
 
-public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener{
+public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener, Popup_newDeadline.DialogListener {
 
     private ListView listView;
 
-    private TextView textView;
+    private TextView textDeadline;
     private TextView timeText;
+
 
 
     @Override
@@ -33,8 +34,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         setContentView(R.layout.activity_main);
 
         //TODO: make deadline and time not just textViews
-        textView = findViewById(R.id.textView);
-        textView.setText("THE DEADLINE!");
+        textDeadline = findViewById(R.id.textDeadline);
+        textDeadline.setText("THE DEADLINE!");
         timeText = findViewById(R.id.textTime);
         timeText.setText("TIME REMAINING");
 
@@ -79,13 +80,13 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()){
             case R.id.nav_newTask:
-                startpopupactivity(Popup_newTask.class);
+                openPopUpNewTask();
                  return true;
             case R.id.nav_newDeadline:
-              startpopupactivity(Popup_newDeadline.class);
+                openPopUpNewDeadline();
                 return true;
             case R.id.nav_myWeek:
-                startpopupactivity(Popup_myWeek.class);
+                openPopUpMyWeek();
                 return true;
             default:
                 return false;
@@ -93,13 +94,28 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         }
 
     }
+    
 
-    private void startpopupactivity(Class popUpClass) {
-        Intent popup_new_task = new Intent(MainActivity.this, popUpClass);
-        startActivity(popup_new_task);
 
+    private void openPopUpNewTask(){
+        Popup_newTask newTask = new Popup_newTask();
+        newTask.show(getSupportFragmentManager(), "newTask");
 
     }
 
+    private void openPopUpMyWeek(){
+        Popup_myWeek myWeek = new Popup_myWeek();
+        myWeek.show(getSupportFragmentManager(), "myWeek");
+    }
 
+    private void openPopUpNewDeadline(){
+        Popup_newDeadline newDeadline = new Popup_newDeadline();
+        newDeadline.show(getSupportFragmentManager(), "newDeadline");
+    }
+
+    @Override
+    public void applyTexts(String deadline, String time) {
+        textDeadline.setText(deadline);
+        timeText.setText(time);
+    }
 }

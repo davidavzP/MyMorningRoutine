@@ -18,7 +18,7 @@
         </activity>
         <activity
             android:name=".popupeditmenu.Popup_newTask"
-            android:theme="@style/AppTheme.CustomTheme"></activity>
+            android:theme="@style/AppTheme.CustomTheme" />
         <activity
             android:name=".popupeditmenu.Popup_newDeadline"
             android:theme="@style/AppTheme.CustomTheme"></activity>
