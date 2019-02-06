@@ -44,7 +44,5 @@ public class Popup_myWeek extends DialogFragment {
         return builder.create();
 
 
-
-
     }
 }

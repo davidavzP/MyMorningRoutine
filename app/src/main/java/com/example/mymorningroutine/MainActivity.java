@@ -32,15 +32,16 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setDefaultTexts();
+        createlistView();
 
-        //TODO: make deadline and time not just textViews
+    }
+
+    public void setDefaultTexts(){
         textDeadline = findViewById(R.id.textDeadline);
         textDeadline.setText("THE DEADLINE!");
         timeText = findViewById(R.id.textTime);
         timeText.setText("TIME REMAINING");
-
-        createlistView();
-
     }
 
     public void createlistView(){
@@ -68,34 +69,12 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     }
 
-
     public void showPopup(View view){
         PopupMenu popupMenu = new PopupMenu(this, view);
         popupMenu.setOnMenuItemClickListener(this);
         popupMenu.inflate(R.menu.nav_button);
         popupMenu.show();
     }
-
-    @Override
-    public boolean onMenuItemClick(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.nav_newTask:
-                openPopUpNewTask();
-                 return true;
-            case R.id.nav_newDeadline:
-                openPopUpNewDeadline();
-                return true;
-            case R.id.nav_myWeek:
-                openPopUpMyWeek();
-                return true;
-            default:
-                return false;
-
-        }
-
-    }
-    
-
 
     private void openPopUpNewTask(){
         Popup_newTask newTask = new Popup_newTask();
@@ -117,5 +96,24 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     public void applyTexts(String deadline, String time) {
         textDeadline.setText(deadline);
         timeText.setText(time);
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.nav_newTask:
+                openPopUpNewTask();
+                return true;
+            case R.id.nav_newDeadline:
+                openPopUpNewDeadline();
+                return true;
+            case R.id.nav_myWeek:
+                openPopUpMyWeek();
+                return true;
+            default:
+                return false;
+
+        }
+
     }
 }
