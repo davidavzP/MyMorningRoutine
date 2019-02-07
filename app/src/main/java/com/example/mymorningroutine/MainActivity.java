@@ -15,6 +15,7 @@ import com.example.mymorningroutine.popupeditmenu.Popup_myWeek;
 import com.example.mymorningroutine.popupeditmenu.Popup_newDeadline;
 import com.example.mymorningroutine.popupeditmenu.Popup_newTask;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -26,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     private TextView textDeadline;
     private TextView timeText;
-
+    private File filedir;
 
 
     @Override
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         setContentView(R.layout.activity_main);
         setDefaultTexts();
         createlistView();
-
+        filedir = getFilesDir();
     }
 
     public void setDefaultTexts(){
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     public void createlistView(){
         listView = (ListView)findViewById(R.id.listView);
+
 
         final ArrayList<String> test = new ArrayList<>();
 
@@ -113,7 +115,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         }
 
     }
-
 
     @Override
     public void applyDeadline(String deadline, int minutes, int hours) {
