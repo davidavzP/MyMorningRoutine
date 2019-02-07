@@ -13,13 +13,17 @@
         android:layout_marginLeft="0dp"
         android:hint="New Deadline" />
 
-    <EditText
-        android:id="@+id/edit_newDeadlineTime"
+
+    <TimePicker
+        android:id="@+id/timePicker"
+        android:timePickerMode="spinner"
+        android:backgroundTintMode="multiply"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
+        android:layout_alignStart="@+id/edit_newDeadline"
+        android:layout_alignLeft="@+id/edit_newDeadline"
         android:layout_marginTop="66dp"
-        android:hint="Deadline Time" />
+        ></TimePicker>
+
 
 </RelativeLayout>

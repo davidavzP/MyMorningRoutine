@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:padding="16dp">
 
@@ -13,13 +14,47 @@
         android:layout_marginLeft="0dp"
         android:hint="New Task" />
 
+
     <EditText
-        android:id="@+id/edit_newTaskTime"
-        android:layout_width="match_parent"
+        android:id="@+id/edit_Hours"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/edit_newTask"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="66dp"
-        android:hint="Time Limit" />
+        android:hint="Hours"
+        android:inputType="number"
+        android:layout_alignLeft="@+id/edit_newTask" />
+
+    <EditText
+        android:id="@+id/edit_Minutes"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/edit_newTask"
+        android:layout_alignLeft="@+id/edit_newTask"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="211dp"
+        android:layout_marginLeft="211dp"
+        android:layout_marginTop="66dp"
+        android:hint="Minute"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/edit_Seconds"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/edit_newTask"
+        android:layout_alignLeft="@+id/edit_newTask"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="408dp"
+        android:layout_marginLeft="408dp"
+        android:layout_marginTop="66dp"
+        android:hint="Seconds"
+        android:inputType="number" />
+
+
 
 </RelativeLayout>

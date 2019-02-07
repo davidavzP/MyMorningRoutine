@@ -1,6 +1,5 @@
 package com.example.mymorningroutine;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
@@ -19,7 +18,7 @@ import com.example.mymorningroutine.popupeditmenu.Popup_newTask;
 import java.util.ArrayList;
 
 
-public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener, Popup_newDeadline.DialogListener {
+public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener, Popup_newDeadline.DialogListener, Popup_newTask.DialogListener {
 
     private ListView listView;
 
@@ -92,11 +91,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         newDeadline.show(getSupportFragmentManager(), "newDeadline");
     }
 
-    @Override
-    public void applyTexts(String deadline, String time) {
-        textDeadline.setText(deadline);
-        timeText.setText(time);
-    }
+
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
@@ -115,5 +110,18 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
         }
 
+    }
+
+
+    @Override
+    public void applyDeadline(String deadline, int minutes, int hours) {
+            textDeadline.setText(deadline);
+            String time = Integer.toString(hours) + ": " + Integer.toString(minutes);
+            timeText.setText(time);
+    }
+
+    @Override
+    public void applyTasks(String newTask, String hours, String minutes, String seconds) {
+        //TODO:: applyTasks to listView
     }
 }
