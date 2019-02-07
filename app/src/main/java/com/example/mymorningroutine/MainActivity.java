@@ -16,9 +16,11 @@ import com.example.mymorningroutine.popupeditmenu.Popup_newDeadline;
 import com.example.mymorningroutine.popupeditmenu.Popup_newTask;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
-public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener, Popup_newDeadline.DialogListener, Popup_newTask.DialogListener {
+public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener,
+        Popup_newDeadline.DialogListener, Popup_newTask.DialogListener, Popup_myWeek.DialogListener {
 
     private ListView listView;
 
@@ -123,5 +125,10 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     @Override
     public void applyTasks(String newTask, String hours, String minutes, String seconds) {
         //TODO:: applyTasks to listView
+    }
+
+    @Override
+    public void applyMyWeek(HashMap<String, Boolean> myWeek) {
+        //TODO:: applyMyWeek to overall Calendar
     }
 }

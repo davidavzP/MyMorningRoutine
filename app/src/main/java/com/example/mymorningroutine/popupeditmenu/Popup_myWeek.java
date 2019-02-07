@@ -27,11 +27,13 @@ public class Popup_myWeek extends DialogFragment {
     private CheckBox friday;
     private CheckBox saturday;
     private CheckBox sunday;
+    private HashMap<String, Boolean> myWeek;
 
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        myWeek = new HashMap<>();
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.popup_my_week, null);
@@ -46,34 +48,30 @@ public class Popup_myWeek extends DialogFragment {
                 .setPositiveButton("done", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
-
+                        myWeek.put(monday.getText().toString(), monday.isChecked());
+                        myWeek.put(tuesday.getText().toString(), tuesday.isChecked());
+                        myWeek.put(wednesday.getText().toString(), wednesday.isChecked());
+                        myWeek.put(thursday.getText().toString(), thursday.isChecked());
+                        myWeek.put(friday.getText().toString(), friday.isChecked());
+                        myWeek.put(saturday.getText().toString(), saturday.isChecked());
+                        myWeek.put(sunday.getText().toString(), sunday.isChecked());
+                        listener.applyMyWeek(myWeek);
                     }
                 });
-
+                monday = view.findViewById(R.id.c_Monday);
+                tuesday = view.findViewById(R.id.c_Tuesday);
+                wednesday = view.findViewById(R.id.c_Wednesday);
+                thursday = view.findViewById(R.id.c_Thursday);
+                friday = view.findViewById(R.id.c_Friday);
+                saturday = view.findViewById(R.id.c_Saturday);
+                sunday = view.findViewById(R.id.c_Sunday);
 
 
 
         return builder.create();
 
     }
-    public void onCheckboxClicked(View view) {
-        HashMap<CheckBox, Boolean> theWeek = new HashMap<CheckBox, Boolean>();
 
-        boolean checked = ((CheckBox) view).isChecked();
-
-        switch(view.getId()) {
-            case R.id.c_Monday:
-
-                if (checked) {
-                    
-                }else {
-                    // Remove the meat
-                }
-                break;
-
-        }
-    }
 
     @Override
     public void onAttach(Context context) {
@@ -87,6 +85,6 @@ public class Popup_myWeek extends DialogFragment {
     }
 
     public interface DialogListener{
-        void applyMyWeek();
+        void applyMyWeek(HashMap<String, Boolean> myWeek);
     }
 }
