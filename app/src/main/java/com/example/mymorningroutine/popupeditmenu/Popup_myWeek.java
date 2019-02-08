@@ -1,6 +1,5 @@
 package com.example.mymorningroutine.popupeditmenu;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -33,6 +32,8 @@ public class Popup_myWeek extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+        //TODO: READ IN MY WEEK
         myWeek = new HashMap<>();
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -87,4 +88,7 @@ public class Popup_myWeek extends DialogFragment {
     public interface DialogListener{
         void applyMyWeek(HashMap<String, Boolean> myWeek);
     }
+
+
+
 }

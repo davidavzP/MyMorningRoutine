@@ -4,13 +4,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.mymorningroutine.handletasks.CustomListViewAdapter;
+import com.example.mymorningroutine.handletasks.Task;
 import com.example.mymorningroutine.popupeditmenu.Popup_myWeek;
 import com.example.mymorningroutine.popupeditmenu.Popup_newDeadline;
 import com.example.mymorningroutine.popupeditmenu.Popup_newTask;
@@ -27,8 +26,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     private TextView textDeadline;
     private TextView timeText;
-    private File filedir;
     private ArrayList<Task> taskList;
+    private File filedir;
 
 
     @Override
@@ -37,7 +36,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         setContentView(R.layout.activity_main);
         setDefaultTexts();
         createlistView();
-        filedir = getFilesDir();
     }
 
     public void setDefaultTexts(){
@@ -122,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     }
 
     @Override
-    public void applyDeadline(String deadline, int minutes, int hours) {
+    public void applyDeadline(String deadline, int hours, int minutes) {
             textDeadline.setText(deadline);
             String time = Integer.toString(hours) + ": " + Integer.toString(minutes);
             timeText.setText(time);
@@ -137,6 +135,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     @Override
     public void applyMyWeek(HashMap<String, Boolean> myWeek) {
-        //TODO:: applyMyWeek to overall Calendar
+        //TODO:: applyMyWeek to overall Calendar, add to database
+
     }
 }
