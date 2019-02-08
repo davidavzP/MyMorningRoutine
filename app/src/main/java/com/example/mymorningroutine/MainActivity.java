@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     private TextView textDeadline;
     private TextView timeText;
     private File filedir;
+    private ArrayList<Task> taskList;
 
 
     @Override
@@ -48,8 +49,11 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     public void createlistView(){
         listView = (ListView)findViewById(R.id.listView);
+        taskList = new ArrayList<>();
+        CustomListViewAdapter adapter = new CustomListViewAdapter(this, R.layout.list_view_tasks, taskList);
+        listView.setAdapter(adapter);
 
-
+        /*
         final ArrayList<String> test = new ArrayList<>();
 
         for(int i = 0; i< 25; i++){
@@ -69,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             }
         });
         //end used code by: Ayaz Qureshi
+        */
 
     }
 
@@ -126,6 +131,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     @Override
     public void applyTasks(String newTask, String hours, String minutes, String seconds) {
         //TODO:: applyTasks to listView
+        Task newtask = new Task(newTask, hours, minutes, seconds);
+        taskList.add(newtask);
     }
 
     @Override

@@ -26,6 +26,7 @@
             android:name=".popupeditmenu.Popup_myWeek"
             android:theme="@style/AppTheme.CustomTheme"></activity>
 
+
     </application>
 
 </manifest>
