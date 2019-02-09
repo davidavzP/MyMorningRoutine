@@ -29,7 +29,11 @@ public class Singleton {
         if(!isFile("Deadline.txt")){
             build_deadlineFile();
         }
+
+
+
     }
+
 
     public boolean isFile(String name){
         return new File(filedir, name).exists();
@@ -46,11 +50,13 @@ public class Singleton {
         String week = "Monday: false\nTuesday: false\nWednesday: false\nThursday: false\nFriday: false\nSaturday: false\nSunday: false";
         fileHandlers.write_to_file("TheWeek.txt", week);
 
+
     }
 
     private void build_deadlineFile() throws IOException {
-        String deadline = "Deadline\n8\n10";
+        String deadline = "Deadline\n9\n10";
         fileHandlers.write_to_file("Deadline.txt", deadline);
+
     }
 
 
@@ -71,7 +77,7 @@ public class Singleton {
     }
 
     public void setDeadline(Deadline deadline) throws IOException {
-        fileHandlers.write_to_file("TheWeek.txt", deadline.toString());
+        fileHandlers.write_to_file("Deadline.txt", deadline.toString());
     }
 
 

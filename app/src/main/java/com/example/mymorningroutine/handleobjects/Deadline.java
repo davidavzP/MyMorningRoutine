@@ -16,8 +16,8 @@ public class Deadline {
 
     }
 
-    public static Deadline parse(ArrayList<String> deadline) {
-        return new Deadline(deadline.get(0), deadline.get(1), deadline.get(2));
+    public static Deadline parse(ArrayList<String> dead) {
+        return new Deadline(dead.get(0), dead.get(1), dead.get(2));
     }
 
     @Override

@@ -58,8 +58,9 @@ public class Popup_newDeadline extends DialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         deadline.setDeadline(textDeadline.getText().toString());
                         int[] hoursandminutes = versionControl();
+                        System.out.println("Hours: " + hoursandminutes[0] + "Minutes: " + hoursandminutes[1]);
                         deadline.setHour(String.valueOf(hoursandminutes[0]));
-                        deadline.setHour(String.valueOf(hoursandminutes[1]));
+                        deadline.setMinutes(String.valueOf(hoursandminutes[1]));
 
                         listener.applyDeadline(deadline);
 

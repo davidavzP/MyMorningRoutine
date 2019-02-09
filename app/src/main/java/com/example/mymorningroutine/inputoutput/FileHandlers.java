@@ -64,6 +64,7 @@ public class FileHandlers {
 
         }
         x.close();
+
         return Deadline.parse(tempdeadline);
 
     }

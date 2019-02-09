@@ -39,11 +39,10 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setDefaultTexts();
-        createlistView();
         createSingleton();
-
         spoint = createSingleton();
+        setDeadlineTexts();
+        createlistView();
     }
 
     public Singleton createSingleton(){
@@ -58,12 +57,17 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     }
 
 
-    public void setDefaultTexts(){
+    public void setDeadlineTexts() {
         textDeadline = findViewById(R.id.textDeadline);
         timeText = findViewById(R.id.textTime);
+        try {
+            textDeadline.setText(spoint.getDeadline().getDeadline());
+            String time = spoint.getDeadline().getHours() + ": " + spoint.getDeadline().getMinutes();
+            timeText.setText(time);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
-        textDeadline.setText("DEADLINE");
-        timeText.setText("8:10");
 
     }
 
@@ -72,28 +76,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         taskList = new ArrayList<>();
         CustomListViewAdapter adapter = new CustomListViewAdapter(this, R.layout.list_view_tasks, taskList);
         listView.setAdapter(adapter);
-
-        /*
-        final ArrayList<String> test = new ArrayList<>();
-
-        for(int i = 0; i< 25; i++){
-            test.add("Task that needs to be done-" + i);
-        }
-
-        ////code created by Ayaz Qureshi for channel InsideAndroid dated 19-oct-2017
-        //https://www.youtube.com/watch?v=Mja5YoL9Jak
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,test);
-
-        listView.setAdapter(arrayAdapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(MainActivity.this,"clicked item:"+i+" "+test.get(i).toString(),Toast.LENGTH_SHORT).show();
-            }
-        });
-        //end used code by: Ayaz Qureshi
-        */
 
     }
 
@@ -152,9 +134,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         String time = deadline.getHours() + ": " + deadline.getMinutes();
         timeText.setText(time);
 
-//            textDeadline.setText(deadline);
-//            String time = Integer.toString(hours) + ": " + Integer.toString(minutes);
-//            timeText.setText(time);
+
     }
 
     @Override
