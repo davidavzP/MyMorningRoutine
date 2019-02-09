@@ -14,22 +14,36 @@ import android.widget.TimePicker;
 
 
 import com.example.mymorningroutine.R;
-import com.example.mymorningroutine.Singleton;
+import com.example.mymorningroutine.handleobjects.Deadline;
+import com.example.mymorningroutine.inputoutput.Singleton;
+
+import java.io.FileNotFoundException;
 
 public class Popup_newDeadline extends DialogFragment {
 
     private TextView textDeadline;
     private DialogListener listener;
     private TimePicker timePicker;
+    private Deadline deadline;
+    private Singleton spoint;
+
 
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
+        spoint = Singleton.get();
 
 
-       LayoutInflater inflater = getActivity().getLayoutInflater();
+        try {
+            deadline  = spoint.getDeadline();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+
+        LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.popup_new_deadline, null);
         builder.setView(view)
                 .setTitle("Create New Deadline")
@@ -42,16 +56,19 @@ public class Popup_newDeadline extends DialogFragment {
                 .setPositiveButton("change", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        String deadline = textDeadline.getText().toString();
+                        deadline.setDeadline(textDeadline.getText().toString());
                         int[] hoursandminutes = versionControl();
+                        deadline.setHour(String.valueOf(hoursandminutes[0]));
+                        deadline.setHour(String.valueOf(hoursandminutes[1]));
 
-                        listener.applyDeadline(deadline, hoursandminutes[0], hoursandminutes[1]);
+                        listener.applyDeadline(deadline);
 
                     }
                 });
 
         textDeadline = view.findViewById(R.id.edit_newDeadline);
         timePicker = view.findViewById(R.id.timePicker);
+
 
 
 
@@ -90,7 +107,7 @@ public class Popup_newDeadline extends DialogFragment {
 
 
     public interface DialogListener{
-        void applyDeadline(String deadline, int minutes, int hours);
+        void applyDeadline(Deadline deadline);
 
     }
 }

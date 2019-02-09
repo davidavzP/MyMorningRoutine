@@ -11,8 +11,10 @@ import android.view.View;
 import android.widget.CheckBox;
 
 import com.example.mymorningroutine.R;
+import com.example.mymorningroutine.inputoutput.Singleton;
+import com.example.mymorningroutine.handleobjects.TheWeek;
 
-import java.util.HashMap;
+import java.io.FileNotFoundException;
 
 
 public class Popup_myWeek extends DialogFragment {
@@ -26,46 +28,74 @@ public class Popup_myWeek extends DialogFragment {
     private CheckBox friday;
     private CheckBox saturday;
     private CheckBox sunday;
-    private HashMap<String, Boolean> myWeek;
+    private TheWeek theWeek;
+    private Singleton spoint;
+
 
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        //TODO: READ IN MY WEEK
-        myWeek = new HashMap<>();
+
+        spoint = Singleton.get();
+
+        try {
+            theWeek = spoint.getWeek();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        //System.out.println("MONDAY: " + theWeek.isMonday());
+
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.popup_my_week, null);
-        builder.setView(view)
-                .setTitle("My Week")
-                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+        builder.setView(view);
+        builder.setTitle("My Week");
+        builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
 
-                    }
-                })
-                .setPositiveButton("done", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        myWeek.put(monday.getText().toString(), monday.isChecked());
-                        myWeek.put(tuesday.getText().toString(), tuesday.isChecked());
-                        myWeek.put(wednesday.getText().toString(), wednesday.isChecked());
-                        myWeek.put(thursday.getText().toString(), thursday.isChecked());
-                        myWeek.put(friday.getText().toString(), friday.isChecked());
-                        myWeek.put(saturday.getText().toString(), saturday.isChecked());
-                        myWeek.put(sunday.getText().toString(), sunday.isChecked());
-                        listener.applyMyWeek(myWeek);
-                    }
-                });
-                monday = view.findViewById(R.id.c_Monday);
-                tuesday = view.findViewById(R.id.c_Tuesday);
-                wednesday = view.findViewById(R.id.c_Wednesday);
-                thursday = view.findViewById(R.id.c_Thursday);
-                friday = view.findViewById(R.id.c_Friday);
-                saturday = view.findViewById(R.id.c_Saturday);
-                sunday = view.findViewById(R.id.c_Sunday);
+            }
+        });
+        builder.setPositiveButton("done", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                theWeek.setMonday(monday.isChecked());
+                theWeek.setTuesday(tuesday.isChecked());
+                theWeek.setWednesday(wednesday.isChecked());
+                theWeek.setThursday(thursday.isChecked());
+                theWeek.setFriday(friday.isChecked());
+                theWeek.setSaturday(saturday.isChecked());
+                theWeek.setSunday(sunday.isChecked());
+
+                listener.applyMyWeek(theWeek);
+            }
+        });
+
+
+        monday = view.findViewById(R.id.c_Monday);
+        monday.setChecked(theWeek.isMonday());
+
+        tuesday = view.findViewById(R.id.c_Tuesday);
+        tuesday.setChecked(theWeek.isTuesday());
+
+        wednesday = view.findViewById(R.id.c_Wednesday);
+        wednesday.setChecked(theWeek.isWednesday());
+
+        thursday = view.findViewById(R.id.c_Thursday);
+        thursday.setChecked(theWeek.isThursday());
+
+        friday = view.findViewById(R.id.c_Friday);
+        friday.setChecked(theWeek.isFriday());
+
+        saturday = view.findViewById(R.id.c_Saturday);
+        saturday.setChecked(theWeek.isSaturday());
+
+        sunday = view.findViewById(R.id.c_Sunday);
+        sunday.setChecked(theWeek.isSunday());
+
 
 
 
@@ -86,7 +116,7 @@ public class Popup_myWeek extends DialogFragment {
     }
 
     public interface DialogListener{
-        void applyMyWeek(HashMap<String, Boolean> myWeek);
+        void applyMyWeek(TheWeek theWeek);
     }
 
 

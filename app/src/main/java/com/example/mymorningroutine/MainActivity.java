@@ -8,15 +8,19 @@ import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.example.mymorningroutine.handleobjects.Deadline;
+import com.example.mymorningroutine.handleobjects.TheWeek;
 import com.example.mymorningroutine.handletasks.CustomListViewAdapter;
 import com.example.mymorningroutine.handletasks.Task;
+import com.example.mymorningroutine.inputoutput.Singleton;
 import com.example.mymorningroutine.popupeditmenu.Popup_myWeek;
 import com.example.mymorningroutine.popupeditmenu.Popup_newDeadline;
 import com.example.mymorningroutine.popupeditmenu.Popup_newTask;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 
 public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener,
@@ -28,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     private TextView timeText;
     private ArrayList<Task> taskList;
     private File filedir;
+    private Singleton spoint;
 
 
     @Override
@@ -36,13 +41,30 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         setContentView(R.layout.activity_main);
         setDefaultTexts();
         createlistView();
+        createSingleton();
+
+        spoint = createSingleton();
     }
+
+    public Singleton createSingleton(){
+        filedir = getFilesDir();
+        Singleton s = Singleton.get();
+        try {
+            s.first_instance_getFiles(filedir);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return s;
+    }
+
 
     public void setDefaultTexts(){
         textDeadline = findViewById(R.id.textDeadline);
-        textDeadline.setText("THE DEADLINE!");
         timeText = findViewById(R.id.textTime);
-        timeText.setText("TIME REMAINING");
+
+        textDeadline.setText("DEADLINE");
+        timeText.setText("8:10");
+
     }
 
     public void createlistView(){
@@ -120,10 +142,19 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     }
 
     @Override
-    public void applyDeadline(String deadline, int hours, int minutes) {
-            textDeadline.setText(deadline);
-            String time = Integer.toString(hours) + ": " + Integer.toString(minutes);
-            timeText.setText(time);
+    public void applyDeadline(Deadline deadline) {
+        try {
+            spoint.setDeadline(deadline);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        textDeadline.setText(deadline.getDeadline());
+        String time = deadline.getHours() + ": " + deadline.getMinutes();
+        timeText.setText(time);
+
+//            textDeadline.setText(deadline);
+//            String time = Integer.toString(hours) + ": " + Integer.toString(minutes);
+//            timeText.setText(time);
     }
 
     @Override
@@ -134,8 +165,14 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     }
 
     @Override
-    public void applyMyWeek(HashMap<String, Boolean> myWeek) {
-        //TODO:: applyMyWeek to overall Calendar, add to database
+    public void applyMyWeek(TheWeek theWeek) {
+        try {
+            spoint.setWeek(theWeek);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
 
     }
 }
