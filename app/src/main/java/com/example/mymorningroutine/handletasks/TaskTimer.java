@@ -27,34 +27,41 @@ public class TaskTimer {
         this.task = task;
         this.TextViewCountDown = TextViewCountDown;
         getTime();
-
         START_TIME_IN_MILLIS = convertTimeToMilliseconds();
         TimeLeftInMillis = START_TIME_IN_MILLIS;
 
     }
 
+
     private void getTime(){
+        getHours();
+        getMinutes();
+        getSeconds();
+    }
+
+    private void getHours(){
         if(isEmpty(task.getTaskHours())){
             this.starthours = 0;
         }else {
             this.starthours = Integer.parseInt(task.getTaskHours());
         }
+    }
+
+    private void getMinutes(){
         if(isEmpty(task.getTaskMinutes())){
             this.startminutes = 0;
         }else{
             this.startminutes = Integer.parseInt(task.getTaskMinutes());
         }
+    }
 
+    private void getSeconds(){
         if(isEmpty(task.getTaskSeconds())){
             this.startseconds = 0;
         }else {
             this.startseconds = Integer.parseInt(task.getTaskSeconds());
         }
-
-
     }
-
-
 
     private boolean isEmpty(String string){
         if(string.equals("")){
@@ -111,7 +118,11 @@ public class TaskTimer {
         int hours = (int) (TimeLeftInMillis / 1000) / 3600;
         int minutes = (int) ((TimeLeftInMillis / 1000) % 3600) / 60;
         int seconds = (int) (TimeLeftInMillis / 1000) % 60;
+        TextViewCountDown.setText(formatTime(hours, minutes, seconds));
 
+    }
+
+    private String formatTime(int hours, int minutes, int seconds){
         String timeLeftFormatted;
         if (hours > 0) {
             timeLeftFormatted = String.format(Locale.getDefault(),
@@ -120,7 +131,7 @@ public class TaskTimer {
             timeLeftFormatted = String.format(Locale.getDefault(),
                     "%02d:%02d", minutes, seconds);
         }
-        TextViewCountDown.setText(timeLeftFormatted);
+        return timeLeftFormatted;
 
     }
 }
