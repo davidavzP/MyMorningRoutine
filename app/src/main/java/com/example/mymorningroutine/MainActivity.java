@@ -13,6 +13,7 @@ import com.example.mymorningroutine.handleobjects.TheWeek;
 import com.example.mymorningroutine.handletasks.CustomListViewAdapter;
 import com.example.mymorningroutine.handletasks.Task;
 import com.example.mymorningroutine.handletasks.TaskList;
+import com.example.mymorningroutine.handletasks.TaskTimer;
 import com.example.mymorningroutine.inputoutput.Singleton;
 import com.example.mymorningroutine.popupeditmenu.Popup_myWeek;
 import com.example.mymorningroutine.popupeditmenu.Popup_newDeadline;
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         spoint = createSingleton();
         setDeadlineTexts();
         createlistView();
+
     }
 
     public Singleton createSingleton(){
@@ -160,8 +162,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-//        Task newtask = new Task(newTask, hours, minutes, seconds);
-//        taskList.add(newtask);
+
     }
 
     @Override

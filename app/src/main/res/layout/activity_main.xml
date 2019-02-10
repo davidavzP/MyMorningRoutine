@@ -70,4 +70,13 @@
         app:layout_constraintBottom_toTopOf="@+id/listView"
         app:layout_constraintStart_toEndOf="@+id/textTime" />
 
+    <TextView
+        android:id="@+id/TIMETEST"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="00:00"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="302dp" />
+
 </android.support.constraint.ConstraintLayout>

@@ -12,6 +12,7 @@ public class TaskList {
     private HashMap<Task, File> alltaskFiles;
     private ArrayList<Task> allTasks;
     private File taskdir;
+    private Singleton spoint;
 
     public TaskList(File taskdir) throws FileNotFoundException {
         this.taskdir = taskdir;
@@ -21,16 +22,26 @@ public class TaskList {
     }
 
     public void getAllTasksfromParent() throws FileNotFoundException {
-        Singleton spoint = Singleton.get();
+        spoint = Singleton.get();
         if(taskdir.listFiles() != null){
-            for(File f: taskdir.listFiles()){
-                String taskname = f.getName();
-                Task task = spoint.getTask(taskname);
-                alltaskFiles.put(task, f);
-                allTasks.add(task);
-            }
+            loopOverExistingTasks();
         }
 
+    }
+
+    private void loopOverExistingTasks() throws FileNotFoundException{
+        for(File f: taskdir.listFiles()){
+            Task task = createnewTask(f);
+            alltaskFiles.put(task, f);
+            allTasks.add(task);
+        }
+    }
+
+
+    private Task createnewTask(File f) throws FileNotFoundException {
+        String taskname = f.getName();
+        Task task = spoint.getTask(taskname);
+        return task;
     }
 
     public ArrayList<Task> getAllTasks(){

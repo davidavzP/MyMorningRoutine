@@ -32,14 +32,23 @@ public class CustomListViewAdapter extends ArrayAdapter<Task> {
         String taskminutes = getItem(position).getTaskMinutes();
         String taskseconds = getItem(position).getTaskSeconds();
 
+
+
         Task task = new Task(taskname, taskhours, taskminutes, taskseconds);
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource, parent, false);
 
         TextView taskName = convertView.findViewById(R.id.userTaskname);
+        TextView taskTime = convertView.findViewById(R.id.userTime);
+
 
         taskName.setText(taskname);
+
+        TaskTimer tasktimer = new TaskTimer(task, taskTime);
+        tasktimer.startTimer();
+
+        //TODO: CREATE TIMER HERE
         return convertView;
     }
 }
