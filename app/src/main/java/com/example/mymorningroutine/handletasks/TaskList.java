@@ -1,14 +1,18 @@
 package com.example.mymorningroutine.handletasks;
 
+import android.util.Log;
+
 import com.example.mymorningroutine.inputoutput.Singleton;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class TaskList {
 
+    private static final String TAG = "TASKLIST";
     private HashMap<Task, File> alltaskFiles;
     private ArrayList<Task> allTasks;
     private File taskdir;
@@ -34,6 +38,7 @@ public class TaskList {
             Task task = createnewTask(f);
             alltaskFiles.put(task, f);
             allTasks.add(task);
+            spoint.pushTaskQueue(task);
         }
     }
 
@@ -44,8 +49,20 @@ public class TaskList {
         return task;
     }
 
+
+
     public ArrayList<Task> getAllTasks(){
+        runTimer();
         return allTasks;
+    }
+
+    private void runTimer() {
+        if(!allTasks.isEmpty()){
+            Log.d(TAG, "IS NOT EMPTY");
+            Task runningtask = allTasks.get(0);
+            runningtask.setRunning(true);
+        }
+
     }
 
     public void addTask(Task task){

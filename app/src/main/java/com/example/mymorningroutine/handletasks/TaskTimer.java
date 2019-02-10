@@ -122,6 +122,10 @@ public class TaskTimer {
 
     }
 
+    public void showStartTime(){
+        TextViewCountDown.setText(formatTime(starthours, startminutes, startseconds));
+    }
+
     private String formatTime(int hours, int minutes, int seconds){
         String timeLeftFormatted;
         if (hours > 0) {

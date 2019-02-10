@@ -8,12 +8,22 @@ public class Task {
     private String taskHours;
     private String taskMinutes;
     private String taskSeconds;
+    private boolean isRunning;
 
     public Task(String taskName, String taskHours, String taskMinutes, String taskSeconds) {
         this.taskName = taskName;
         this.taskHours = taskHours;
         this.taskMinutes = taskMinutes;
         this.taskSeconds = taskSeconds;
+        this.isRunning = false;
+    }
+
+    public void setRunning(boolean isRunning){
+        this.isRunning = isRunning;
+    }
+
+    public boolean isRunning(){
+        return isRunning;
     }
 
     public static Task parse(ArrayList<String> task){

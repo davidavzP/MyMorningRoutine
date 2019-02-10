@@ -1,7 +1,17 @@
 package com.example.mymorningroutine;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.app.job.JobInfo;
+import android.app.job.JobScheduler;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
@@ -23,6 +33,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 
 public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener,
@@ -38,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     private Singleton spoint;
 
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +59,10 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         setDeadlineTexts();
         createlistView();
 
+
     }
+
+
 
     public Singleton createSingleton(){
         filedir = getFilesDir();
@@ -76,15 +91,19 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     }
 
     public void createlistView(){
-        //TODO: UPDATE LISTVIEW FROM FILES
+
         try {
             task_List = new TaskList(spoint.getTaskdir());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         listView = (ListView)findViewById(R.id.listView);
+
+        //TODO: UPDATE LISTVIEW FROM FILES
         taskList = task_List.getAllTasks();
-        //taskList = new ArrayList<>();
+
+
+
         CustomListViewAdapter adapter = new CustomListViewAdapter(this, R.layout.list_view_tasks, taskList);
         listView.setAdapter(adapter);
 
@@ -152,6 +171,9 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     public void applyTasks(String newTask, String hours, String minutes, String seconds) {
         //TODO:: applyTasks to listView
         Task task = new Task(newTask, hours, minutes, seconds);
+
+        spoint.pushTaskQueue(task);
+
         try {
             spoint.setTask(task);
         } catch (IOException e) {
@@ -164,6 +186,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         }
 
     }
+
+
 
     @Override
     public void applyMyWeek(TheWeek theWeek) {

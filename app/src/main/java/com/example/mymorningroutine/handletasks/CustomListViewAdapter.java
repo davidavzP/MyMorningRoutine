@@ -2,6 +2,7 @@ package com.example.mymorningroutine.handletasks;
 
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,20 +10,27 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.mymorningroutine.R;
+import com.example.mymorningroutine.inputoutput.Singleton;
 
 import java.util.List;
 
 public class CustomListViewAdapter extends ArrayAdapter<Task> {
 
+    private static final String TAG = "CUSTOMLISTVIEWADAPTER";
+    private final List<Task> objects;
     private Context mContext;
     private int mResource;
 
     public CustomListViewAdapter(Context context, int resource, List<Task> objects) {
+
         super(context, resource, objects);
         this.mContext = context;
         this.mResource =resource;
+        this.objects = objects;
+
 
     }
+
 
 
     @Override
@@ -31,6 +39,9 @@ public class CustomListViewAdapter extends ArrayAdapter<Task> {
         String taskhours = getItem(position).getTaskHours();
         String taskminutes = getItem(position).getTaskMinutes();
         String taskseconds = getItem(position).getTaskSeconds();
+
+
+        Singleton spoint = Singleton.get();
 
 
 
@@ -46,7 +57,14 @@ public class CustomListViewAdapter extends ArrayAdapter<Task> {
         taskName.setText(taskname);
 
         TaskTimer tasktimer = new TaskTimer(task, taskTime);
-        tasktimer.startTimer();
+        if(getPosition(spoint.getRunningTask()) == 0){
+            Log.d(TAG, "IS RUNNING");
+            tasktimer.startTimer();
+        }else {
+            Log.d(TAG, "IS NOT RUNNING");
+            tasktimer.showStartTime();
+        }
+
 
         //TODO: CREATE TIMER HERE
         return convertView;
