@@ -12,7 +12,10 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.example.mymorningroutine.R;
+import com.example.mymorningroutine.handletasks.Task;
 import com.example.mymorningroutine.inputoutput.Singleton;
+
+import java.io.IOException;
 
 
 public class Popup_newTask extends DialogFragment {
@@ -22,13 +25,10 @@ public class Popup_newTask extends DialogFragment {
     private EditText textMinutes;
     private EditText textHours;
     private DialogListener listener;
-    private Singleton spoint;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
-        spoint = Singleton.get();
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.popup_new_task, null);
@@ -43,9 +43,6 @@ public class Popup_newTask extends DialogFragment {
                 .setPositiveButton("add", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        
-
-
                         String newTask = newTaskname.getText().toString();
                         String hours = textHours.getText().toString();
                         String minutes = textMinutes.getText().toString();

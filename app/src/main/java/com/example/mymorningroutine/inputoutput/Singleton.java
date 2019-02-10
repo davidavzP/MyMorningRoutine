@@ -3,12 +3,10 @@ package com.example.mymorningroutine.inputoutput;
 import com.example.mymorningroutine.handleobjects.Deadline;
 import com.example.mymorningroutine.handleobjects.TheWeek;
 import com.example.mymorningroutine.handletasks.Task;
-import com.example.mymorningroutine.handletasks.TaskList;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class Singleton {
     private static Singleton instance;
@@ -30,14 +28,7 @@ public class Singleton {
 
     ///Only called once to set the file directory
     public void first_instance_getFiles(File dir) throws IOException {
-        if(new File("TaskList").isDirectory()){
-            taskListFolder = build_taskListDir();
-            System.out.println(false);
-        }else {
-            taskListFolder = new File("TaskList");
-            System.out.println(true);
-        }
-
+        build_TaskList();
         this.filedir = dir;
         fileHandlers.set_filedir(filedir, taskListFolder);
         if(!isFile("TheWeek.txt")){
@@ -48,6 +39,10 @@ public class Singleton {
         }
 
 
+    }
+
+    public void build_TaskList(){
+        taskListFolder = build_taskListDir();
     }
 
 
@@ -61,12 +56,12 @@ public class Singleton {
 
     private void build_weekFile()throws IOException{
         String week = "Monday: false\nTuesday: false\nWednesday: false\nThursday: false\nFriday: false\nSaturday: false\nSunday: false";
-        fileHandlers.write_to_file("TheWeek.txt", week);
+        fileHandlers.writeFile_filedir("TheWeek.txt", week);
     }
 
     private void build_deadlineFile() throws IOException {
         String deadline = "Deadline\n9\n10";
-        fileHandlers.write_to_file("Deadline.txt", deadline);
+        fileHandlers.writeFile_filedir("Deadline.txt", deadline);
     }
 
     private File build_taskListDir(){
@@ -80,7 +75,7 @@ public class Singleton {
 
 
     public void setWeek(TheWeek week) throws IOException {
-        fileHandlers.write_to_file("TheWeek.txt", week.toString());
+        fileHandlers.writeFile_filedir("TheWeek.txt", week.toString());
     }
 
     public Deadline getDeadline() throws FileNotFoundException{
@@ -89,11 +84,11 @@ public class Singleton {
     }
 
     public void setDeadline(Deadline deadline) throws IOException {
-        fileHandlers.write_to_file("Deadline.txt", deadline.toString());
+        fileHandlers.writeFile_filedir("Deadline.txt", deadline.toString());
     }
 
     public void setTask(Task task) throws IOException {
-        fileHandlers.write_to_file(task.getFileName(), task.toString());
+        fileHandlers.writeFile_taskdir(task.getFileName(), task.toString());
     }
 
     public Task getTask(String taskname) throws FileNotFoundException {

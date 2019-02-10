@@ -4,10 +4,13 @@ import com.example.mymorningroutine.handleobjects.Deadline;
 import com.example.mymorningroutine.handleobjects.TheWeek;
 import com.example.mymorningroutine.handletasks.Task;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -24,15 +27,22 @@ public class FileHandlers {
 
 
     //TODO:HANDLE ERROR
-    public void write_to_file(String file_name, String text) throws IOException {
-        File output = new File(filedir, file_name);
+    public void writeFile_filedir(String file_name, String text) throws IOException {
+        writeFile(filedir, file_name, text);
 
+
+    }
+
+    public void writeFile_taskdir(String file_name, String text) throws IOException {
+        writeFile(taskdir, file_name, text);
+    }
+
+    private void writeFile(File dir, String file_name, String text) throws IOException {
+        File output = new File(dir, file_name);
         PrintWriter pw = new PrintWriter(new FileWriter(output));
 
         pw.println(text);
         pw.close();
-
-
     }
 
 
@@ -40,8 +50,9 @@ public class FileHandlers {
 
         ArrayList<String> tempweek = new ArrayList<>();
         Scanner x;
-
-        x = new Scanner(new File(filedir, "TheWeek.txt"));
+        File file = new File(filedir, "TheWeek.txt");
+        System.out.println(file.getName());
+        x = new Scanner(file);
 
         while(x.hasNextLine()) {
             String line = x.nextLine();
@@ -74,7 +85,7 @@ public class FileHandlers {
         ArrayList<String> temptask = new ArrayList<>();
         Scanner x;
 
-        x = new Scanner(new File(taskdir, taskname));
+        x = new Scanner(new File(taskdir.getAbsoluteFile(), taskname));
 
         while(x.hasNextLine()) {
             String line = x.nextLine();
@@ -88,7 +99,7 @@ public class FileHandlers {
     }
 
     public File makeDir(String namedir){
-        File dir = new File(namedir);
+        File dir = new File(filedir, namedir);
         dir.mkdirs();
 
         return dir;

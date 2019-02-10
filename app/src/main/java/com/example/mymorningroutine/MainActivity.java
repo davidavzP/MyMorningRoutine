@@ -149,6 +149,17 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     @Override
     public void applyTasks(String newTask, String hours, String minutes, String seconds) {
         //TODO:: applyTasks to listView
+        Task task = new Task(newTask, hours, minutes, seconds);
+        try {
+            spoint.setTask(task);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            task_List.addTask(spoint.getTask(task.getFileName()));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 //        Task newtask = new Task(newTask, hours, minutes, seconds);
 //        taskList.add(newtask);
     }
