@@ -12,6 +12,7 @@ import com.example.mymorningroutine.handleobjects.Deadline;
 import com.example.mymorningroutine.handleobjects.TheWeek;
 import com.example.mymorningroutine.handletasks.CustomListViewAdapter;
 import com.example.mymorningroutine.handletasks.Task;
+import com.example.mymorningroutine.handletasks.TaskList;
 import com.example.mymorningroutine.inputoutput.Singleton;
 import com.example.mymorningroutine.popupeditmenu.Popup_myWeek;
 import com.example.mymorningroutine.popupeditmenu.Popup_newDeadline;
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     private TextView textDeadline;
     private TextView timeText;
     private ArrayList<Task> taskList;
+    private TaskList task_List;
     private File filedir;
     private Singleton spoint;
 
@@ -72,8 +74,15 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     }
 
     public void createlistView(){
+        //TODO: UPDATE LISTVIEW FROM FILES
+        try {
+            task_List = new TaskList(spoint.getTaskdir());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         listView = (ListView)findViewById(R.id.listView);
-        taskList = new ArrayList<>();
+        taskList = task_List.getAllTasks();
+        //taskList = new ArrayList<>();
         CustomListViewAdapter adapter = new CustomListViewAdapter(this, R.layout.list_view_tasks, taskList);
         listView.setAdapter(adapter);
 
@@ -140,8 +149,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     @Override
     public void applyTasks(String newTask, String hours, String minutes, String seconds) {
         //TODO:: applyTasks to listView
-        Task newtask = new Task(newTask, hours, minutes, seconds);
-        taskList.add(newtask);
+//        Task newtask = new Task(newTask, hours, minutes, seconds);
+//        taskList.add(newtask);
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.example.mymorningroutine.inputoutput;
 
 import com.example.mymorningroutine.handleobjects.Deadline;
 import com.example.mymorningroutine.handleobjects.TheWeek;
+import com.example.mymorningroutine.handletasks.Task;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,9 +15,11 @@ import java.util.Scanner;
 public class FileHandlers {
 
     private File filedir;
+    private File taskdir;
 
-    public void set_filedir(File filedir){
+    public void set_filedir(File filedir, File taskdir){
         this.filedir = filedir;
+        this.taskdir = taskdir;
     }
 
 
@@ -38,8 +41,7 @@ public class FileHandlers {
         ArrayList<String> tempweek = new ArrayList<>();
         Scanner x;
 
-            x = new Scanner(new File(filedir, "TheWeek.txt"));
-
+        x = new Scanner(new File(filedir, "TheWeek.txt"));
 
         while(x.hasNextLine()) {
             String line = x.nextLine();
@@ -57,7 +59,6 @@ public class FileHandlers {
 
         x = new Scanner(new File(filedir, "Deadline.txt"));
 
-
         while(x.hasNextLine()) {
             String line = x.nextLine();
             tempdeadline.add(line);
@@ -68,5 +69,31 @@ public class FileHandlers {
         return Deadline.parse(tempdeadline);
 
     }
+
+    public Task read_Task_file(String taskname) throws FileNotFoundException {
+        ArrayList<String> temptask = new ArrayList<>();
+        Scanner x;
+
+        x = new Scanner(new File(taskdir, taskname));
+
+        while(x.hasNextLine()) {
+            String line = x.nextLine();
+            temptask.add(line);
+
+        }
+        x.close();
+
+        return Task.parse(temptask);
+
+    }
+
+    public File makeDir(String namedir){
+        File dir = new File(namedir);
+        dir.mkdirs();
+
+        return dir;
+    }
+
+
 
 }

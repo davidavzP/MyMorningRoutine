@@ -1,5 +1,8 @@
 package com.example.mymorningroutine.handletasks;
 
+
+import java.util.ArrayList;
+
 public class Task {
     private String taskName;
     private String taskHours;
@@ -11,6 +14,34 @@ public class Task {
         this.taskHours = taskHours;
         this.taskMinutes = taskMinutes;
         this.taskSeconds = taskSeconds;
+    }
+
+    public static Task parse(ArrayList<String> task){
+        return new Task(task.get(0), task.get(1), task.get(2), task.get(3));
+    }
+
+    public String getFileName(){
+        return taskName+".txt";
+    }
+
+    @Override
+    public String toString(){
+        return taskName + "\n" + taskHours + "\n" + taskMinutes + "\n" + taskSeconds;
+    }
+
+    @Override
+    public int hashCode() {
+        return toString().hashCode();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof Task) {
+            Task that = (Task) other;
+            return this.taskName.equals(that.taskName);
+        } else {
+            return false;
+        }
     }
 
     public String getTaskName() {
@@ -29,4 +60,19 @@ public class Task {
         return taskSeconds;
     }
 
+    public void setTaskName(String taskName) {
+        this.taskName = taskName;
+    }
+
+    public void setTaskHours(String taskHours) {
+        this.taskHours = taskHours;
+    }
+
+    public void setTaskMinutes(String taskMinutes) {
+        this.taskMinutes = taskMinutes;
+    }
+
+    public void setTaskSeconds(String taskSeconds) {
+        this.taskSeconds = taskSeconds;
+    }
 }
