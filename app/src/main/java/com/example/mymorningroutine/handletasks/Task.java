@@ -70,19 +70,4 @@ public class Task {
         return taskSeconds;
     }
 
-    public void setTaskName(String taskName) {
-        this.taskName = taskName;
-    }
-
-    public void setTaskHours(String taskHours) {
-        this.taskHours = taskHours;
-    }
-
-    public void setTaskMinutes(String taskMinutes) {
-        this.taskMinutes = taskMinutes;
-    }
-
-    public void setTaskSeconds(String taskSeconds) {
-        this.taskSeconds = taskSeconds;
-    }
 }

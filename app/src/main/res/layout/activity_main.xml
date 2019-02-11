@@ -44,12 +44,12 @@
         android:id="@+id/textTime"
         android:layout_width="148dp"
         android:layout_height="31dp"
-        android:layout_marginStart="29dp"
-        android:layout_marginLeft="29dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginStart="85dp"
+        android:layout_marginLeft="85dp"
+        android:layout_marginTop="52dp"
         android:text="@string/texttime"
         android:textAllCaps="true"
-        android:textColor="@android:color/holo_purple"
+        android:textColor="@color/Red"
         android:textSize="18sp"
         android:textStyle="bold|italic"
         android:typeface="serif"
@@ -62,8 +62,6 @@
         android:id="@+id/nav_Menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="56dp"
-        android:layout_marginLeft="56dp"
         android:layout_marginBottom="16dp"
         android:onClick="showPopup"
         android:text="EDIT"
@@ -71,12 +69,20 @@
         app:layout_constraintStart_toEndOf="@+id/textTime" />
 
     <TextView
-        android:id="@+id/TIMETEST"
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="00:00"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="302dp" />
+        android:layout_marginStart="45dp"
+        android:layout_marginLeft="45dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="126dp"
+        android:layout_marginRight="126dp"
+        android:text="Time:"
+        android:textColor="@color/Black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/nav_Menu"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/textDeadline"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

@@ -10,6 +10,7 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.mymorningroutine.R;
 import com.example.mymorningroutine.handletasks.Task;
@@ -47,7 +48,14 @@ public class Popup_newTask extends DialogFragment {
                         String hours = textHours.getText().toString();
                         String minutes = textMinutes.getText().toString();
                         String seconds = textSeconds.getText().toString();
-                        listener.applyTasks(newTask, hours, minutes, seconds);
+
+                        if(newTaskname.getText().length() == 0){
+                            Toast.makeText(getContext(), "Task Name can't be empty", Toast.LENGTH_SHORT).show();
+                            return;
+                        }else{
+                            listener.applyTasks(newTask, hours, minutes, seconds);
+                        }
+
                     }
                 });
 

@@ -57,13 +57,8 @@ public class CustomListViewAdapter extends ArrayAdapter<Task> {
         taskName.setText(taskname);
 
         TaskTimer tasktimer = new TaskTimer(task, taskTime);
-        if(getPosition(spoint.getRunningTask()) == 0){
-            Log.d(TAG, "IS RUNNING");
-            tasktimer.startTimer();
-        }else {
-            Log.d(TAG, "IS NOT RUNNING");
-            tasktimer.showStartTime();
-        }
+
+        tasktimer.startTimer();
 
 
         //TODO: CREATE TIMER HERE

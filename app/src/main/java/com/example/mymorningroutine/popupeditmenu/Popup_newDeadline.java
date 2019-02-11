@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 
 import com.example.mymorningroutine.R;
@@ -56,13 +57,20 @@ public class Popup_newDeadline extends DialogFragment {
                 .setPositiveButton("change", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        deadline.setDeadline(textDeadline.getText().toString());
-                        int[] hoursandminutes = versionControl();
-                        System.out.println("Hours: " + hoursandminutes[0] + "Minutes: " + hoursandminutes[1]);
-                        deadline.setHour(String.valueOf(hoursandminutes[0]));
-                        deadline.setMinutes(String.valueOf(hoursandminutes[1]));
 
-                        listener.applyDeadline(deadline);
+                        int[] hoursandminutes = versionControl();
+
+                        if(textDeadline.getText().length() == 0){
+                            Toast.makeText(getContext(), "Deadline Name can't be empty", Toast.LENGTH_SHORT).show();
+                            deadline.setDeadline(deadline.getDeadline());
+                            deadline.setHour(deadline.getHours());
+                            deadline.setMinutes(deadline.getMinutes());
+                            return;
+                        }else {
+                            listener.applyDeadline(deadline);
+                        }
+
+
 
                     }
                 });

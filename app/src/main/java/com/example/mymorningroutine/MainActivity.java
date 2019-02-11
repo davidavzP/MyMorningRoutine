@@ -161,19 +161,40 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             e.printStackTrace();
         }
         textDeadline.setText(deadline.getDeadline());
-        String time = deadline.getHours() + ": " + deadline.getMinutes();
+        String hours = lessThanTen(deadline.getHours());
+        String minutes = lessThanTen(deadline.getMinutes());
+        String time =  hours + ": " + minutes;
+        deadline.setHour(hours);
+        deadline.setMinutes(minutes);
         timeText.setText(time);
 
 
     }
 
+
+
+
+    public String lessThanTen(String num){
+        if(FixbugFor24(num)){return num = "24";};
+        int num_int = Integer.valueOf(num);
+        if(num_int < 10){
+            return num = "0" + num;
+        }else{
+            return num;
+        }
+    }
+
+    public boolean FixbugFor24(String num){
+        if(num.equals("0") || num.equals("00")){
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public void applyTasks(String newTask, String hours, String minutes, String seconds) {
-        //TODO:: applyTasks to listView
         Task task = new Task(newTask, hours, minutes, seconds);
-
         spoint.pushTaskQueue(task);
-
         try {
             spoint.setTask(task);
         } catch (IOException e) {
