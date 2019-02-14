@@ -55,13 +55,9 @@ public class CustomListViewAdapter extends ArrayAdapter<Task> {
 
 
         taskName.setText(taskname);
+        String time = taskhours + ": " + taskminutes + ": " + taskseconds;
+        taskTime.setText(time);
 
-        TaskTimer tasktimer = new TaskTimer(task, taskTime);
-
-        tasktimer.startTimer();
-
-
-        //TODO: CREATE TIMER HERE
         return convertView;
     }
 }

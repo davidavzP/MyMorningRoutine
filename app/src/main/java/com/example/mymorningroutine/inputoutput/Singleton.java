@@ -7,15 +7,14 @@ import com.example.mymorningroutine.handletasks.Task;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayDeque;
-import java.util.Queue;
+
+
 
 public class Singleton {
     private static Singleton instance;
     private FileHandlers fileHandlers;
     private File filedir;
     private File taskListFolder;
-    private ArrayDeque<Task> taskQueue;
 
 
     public static Singleton get() {
@@ -40,21 +39,11 @@ public class Singleton {
         if(!isFile("Deadline.txt")){
             build_deadlineFile();
         }
-
-
     }
+
 
     public void build_TaskList(){
-        taskQueue = new ArrayDeque<>();
         taskListFolder = build_taskListDir();
-    }
-
-    public void pushTaskQueue(Task task){
-        taskQueue.push(task);
-    }
-
-    public Task getRunningTask(){
-        return taskQueue.removeLast();
     }
 
 
@@ -99,11 +88,11 @@ public class Singleton {
         fileHandlers.writeFile_filedir("Deadline.txt", deadline.toString());
     }
 
-    public void setTask(Task task) throws IOException {
+    public void writeTask(Task task) throws IOException {
         fileHandlers.writeFile_taskdir(task.getFileName(), task.toString());
     }
 
-    public Task getTask(String taskname) throws FileNotFoundException {
+    public Task readTask(String taskname) throws FileNotFoundException {
         return fileHandlers.read_Task_file(taskname);
     }
 

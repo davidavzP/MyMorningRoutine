@@ -26,7 +26,6 @@ public class FileHandlers {
     }
 
 
-    //TODO:HANDLE ERROR
     public void writeFile_filedir(String file_name, String text) throws IOException {
         writeFile(filedir, file_name, text);
 
@@ -101,7 +100,6 @@ public class FileHandlers {
     public File makeDir(String namedir){
         File dir = new File(filedir, namedir);
         dir.mkdirs();
-
         return dir;
     }
 

@@ -18,6 +18,11 @@ public class Task {
         this.isRunning = false;
     }
 
+    public boolean isEmpty(){
+        return taskName.equals("") && taskHours.equals("")
+                && taskMinutes.equals("") && taskSeconds.equals("");
+    }
+
     public void setRunning(boolean isRunning){
         this.isRunning = isRunning;
     }

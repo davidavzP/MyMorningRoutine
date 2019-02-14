@@ -80,7 +80,5 @@ public class Popup_newTask extends DialogFragment {
 
     public interface DialogListener{
         void applyTasks(String newTask, String hours, String minutes, String seconds);
-
-
     }
 }

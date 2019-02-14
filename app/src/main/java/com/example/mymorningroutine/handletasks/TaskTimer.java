@@ -1,14 +1,27 @@
 package com.example.mymorningroutine.handletasks;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.content.Context;
+import android.content.ContextWrapper;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.widget.TextView;
+
+import com.example.mymorningroutine.MainActivity;
+import com.example.mymorningroutine.R;
 
 import org.w3c.dom.Text;
 
 import java.sql.Time;
 import java.util.Locale;
 
+import static android.support.v4.content.ContextCompat.getSystemService;
+
 public class TaskTimer {
+    private static String TAG = "TASKTIMER";
     private long START_TIME_IN_MILLIS;
 
     private CountDownTimer mCountDownTimer;
@@ -29,6 +42,7 @@ public class TaskTimer {
         getTime();
         START_TIME_IN_MILLIS = convertTimeToMilliseconds();
         TimeLeftInMillis = START_TIME_IN_MILLIS;
+
 
     }
 
@@ -73,7 +87,7 @@ public class TaskTimer {
 
     private long convertTimeToMilliseconds(){
         double total_minutes = (starthours *60) + (startseconds *0.0166666667) + (startminutes);
-        long millis = (long) total_minutes*60000;
+        long millis = Math.round(total_minutes*60000);
         return millis;
     }
 
@@ -81,7 +95,6 @@ public class TaskTimer {
     public void startTimer() {
 
         mEndTime = System.currentTimeMillis() + TimeLeftInMillis;
-        System.out.println("TESTING: " + TimeLeftInMillis);
 
         mCountDownTimer = new CountDownTimer(TimeLeftInMillis, 1000) {
             @Override
@@ -95,6 +108,8 @@ public class TaskTimer {
             public void onFinish() {
                 mTimerRunning = false;
                 TextViewCountDown.setText("DONE");
+                TaskHandler.get().timeforNextTask();
+
 
             }
         }.start();
