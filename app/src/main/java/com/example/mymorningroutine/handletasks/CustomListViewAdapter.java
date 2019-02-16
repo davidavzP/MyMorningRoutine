@@ -1,8 +1,9 @@
 package com.example.mymorningroutine.handletasks;
 
 
+
 import android.content.Context;
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,11 +28,14 @@ public class CustomListViewAdapter extends ArrayAdapter<Task> {
         this.mContext = context;
         this.mResource =resource;
         this.objects = objects;
-
-
     }
 
 
+
+    static class ViewHolder {
+        TextView text;
+        int position;
+    }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -40,24 +44,34 @@ public class CustomListViewAdapter extends ArrayAdapter<Task> {
         String taskminutes = getItem(position).getTaskMinutes();
         String taskseconds = getItem(position).getTaskSeconds();
 
-
         Singleton spoint = Singleton.get();
-
 
 
         Task task = new Task(taskname, taskhours, taskminutes, taskseconds);
 
+
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource, parent, false);
 
+        ViewHolder viewHolder = new ViewHolder();
+
+
+
         TextView taskName = convertView.findViewById(R.id.userTaskname);
         TextView taskTime = convertView.findViewById(R.id.userTime);
+
+        viewHolder.text = taskName;
+        viewHolder.position = position;
+        convertView.setTag(viewHolder);
 
 
         taskName.setText(taskname);
         String time = taskhours + ": " + taskminutes + ": " + taskseconds;
         taskTime.setText(time);
 
+
+
         return convertView;
     }
+
 }

@@ -43,4 +43,8 @@ public class TaskQueue {
         return taskQueue.size();
     }
 
+    public void flush(){
+        taskQueue.clear();
+    }
+
 }

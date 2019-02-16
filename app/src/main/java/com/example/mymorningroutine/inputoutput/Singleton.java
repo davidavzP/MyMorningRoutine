@@ -89,11 +89,22 @@ public class Singleton {
     }
 
     public void writeTask(Task task) throws IOException {
-        fileHandlers.writeFile_taskdir(task.getFileName(), task.toString());
+
+            fileHandlers.writeFile_taskdir(task.getFileName(), task.toString());
     }
 
     public Task readTask(String taskname) throws FileNotFoundException {
         return fileHandlers.read_Task_file(taskname);
+    }
+
+    public void deleteTask(Task task){
+        fileHandlers.delete_Task_file(task.getFileName());
+    }
+
+    public boolean isExistingTask(Task task){
+        if(fileHandlers.isTaskFile(task)){
+            return true;
+        }else {return false;}
     }
 
 

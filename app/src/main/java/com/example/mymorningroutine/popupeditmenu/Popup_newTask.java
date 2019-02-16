@@ -7,9 +7,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.NumberPicker;
 import android.widget.Toast;
 
 import com.example.mymorningroutine.R;
@@ -20,15 +22,22 @@ import java.io.IOException;
 
 
 public class Popup_newTask extends DialogFragment {
+    private static String TAG = "POPUPNEWTASK";
     private EditText newTaskname;
     private EditText newTasktime;
     private EditText textSeconds;
     private EditText textMinutes;
     private EditText textHours;
     private DialogListener listener;
+    private NumberPicker hoursPicker;
+    private NumberPicker minutesPicker;
+    private NumberPicker secondsPicker;
+
+
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -45,9 +54,18 @@ public class Popup_newTask extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String newTask = newTaskname.getText().toString();
+
+                        /*
                         String hours = textHours.getText().toString();
                         String minutes = textMinutes.getText().toString();
                         String seconds = textSeconds.getText().toString();
+                        */
+
+                        String hours = String.valueOf(hoursPicker.getValue());
+                        String minutes = String.valueOf(minutesPicker.getValue());
+                        String seconds = String.valueOf(secondsPicker.getValue());
+
+
 
                         if(newTaskname.getText().length() == 0){
                             Toast.makeText(getContext(), "Task Name can't be empty", Toast.LENGTH_SHORT).show();
@@ -64,9 +82,23 @@ public class Popup_newTask extends DialogFragment {
         textMinutes = view.findViewById(R.id.edit_Minutes);
         textHours = view.findViewById(R.id.edit_Hours);
 
+
+        hoursPicker = setPicker(view, hoursPicker, R.id.hoursPicker);
+        minutesPicker = setPicker(view, minutesPicker, R.id.minutesPicker);
+
+        secondsPicker = setPicker(view, secondsPicker, R.id.secondsPicker);
+
         return builder.create();
 
     }
+
+    private NumberPicker setPicker(View view, NumberPicker picker, int id){
+        picker = view.findViewById(id);
+        picker.setMinValue(0);
+        picker.setMaxValue(60);
+        return picker;
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

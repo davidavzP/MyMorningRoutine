@@ -39,7 +39,6 @@ public class FileHandlers {
     private void writeFile(File dir, String file_name, String text) throws IOException {
         File output = new File(dir, file_name);
         PrintWriter pw = new PrintWriter(new FileWriter(output));
-
         pw.println(text);
         pw.close();
     }
@@ -50,7 +49,6 @@ public class FileHandlers {
         ArrayList<String> tempweek = new ArrayList<>();
         Scanner x;
         File file = new File(filedir, "TheWeek.txt");
-        System.out.println(file.getName());
         x = new Scanner(file);
 
         while(x.hasNextLine()) {
@@ -97,10 +95,22 @@ public class FileHandlers {
 
     }
 
+    public void delete_Task_file(String taskname){
+        File task = new File(taskdir.getAbsolutePath(), taskname);
+        task.delete();
+    }
+
     public File makeDir(String namedir){
         File dir = new File(filedir, namedir);
         dir.mkdirs();
         return dir;
+    }
+
+    public boolean isTaskFile(Task task){
+        if(new File(taskdir, task.getFileName()).isFile()){
+            return true;
+        }
+        return false;
     }
 
 

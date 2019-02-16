@@ -9,16 +9,9 @@ import android.net.Uri;
 import android.os.CountDownTimer;
 import android.util.Log;
 import android.widget.TextView;
-
-import com.example.mymorningroutine.MainActivity;
-import com.example.mymorningroutine.R;
-
-import org.w3c.dom.Text;
-
-import java.sql.Time;
 import java.util.Locale;
 
-import static android.support.v4.content.ContextCompat.getSystemService;
+
 
 public class TaskTimer {
     private static String TAG = "TASKTIMER";
@@ -53,6 +46,8 @@ public class TaskTimer {
         getSeconds();
     }
 
+
+    //TODO: too many repeated things here
     private void getHours(){
         if(isEmpty(task.getTaskHours())){
             this.starthours = 0;
@@ -125,6 +120,7 @@ public class TaskTimer {
     }
 
     public void resetTimer() {
+        pauseTimer();
         TimeLeftInMillis = START_TIME_IN_MILLIS;
         updateCountDownText();
     }

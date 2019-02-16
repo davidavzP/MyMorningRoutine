@@ -21,31 +21,51 @@ public class DeadlineTest {
     }
 
 
-    @Test
-    public void equals() {
-    }
 
     @Test
     public void getDeadline() {
+        Deadline d = new Deadline("Test", "4", "5");
+        String deadline = d.getDeadline();
+        Assert.assertEquals("Test", deadline);
     }
 
     @Test
     public void setDeadline() {
+        Deadline d = new Deadline("Test", "4", "5");
+        Assert.assertEquals("Test", d.getDeadline());
+        d.setDeadline("NEW NAME");
+        Assert.assertEquals("NEW NAME", d.getDeadline());
+
     }
 
     @Test
     public void getHours() {
+        Deadline d = new Deadline("Test", "4", "5");
+        String deadline = d.getHours();
+        Assert.assertEquals("4" , deadline);
     }
 
     @Test
     public void setHour() {
+        Deadline d = new Deadline("Test", "4", "5");
+        Assert.assertEquals("4", d.getHours());
+        d.setHour("5");
+        Assert.assertEquals("5", d.getHours());
     }
 
     @Test
     public void getMinutes() {
+
+        Deadline d = new Deadline("Test", "4", "5");
+        Assert.assertEquals("5", d.getMinutes());
+
     }
 
     @Test
     public void setMinutes() {
+        Deadline d = new Deadline("Test", "4", "5");
+        Assert.assertEquals("5", d.getMinutes());
+        d.setMinutes("6");
+        Assert.assertEquals("6", d.getMinutes());
     }
 }

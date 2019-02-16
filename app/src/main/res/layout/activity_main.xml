@@ -122,12 +122,31 @@
         android:id="@+id/startTasks"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="117dp"
-        android:text="Start Tasks"
+        android:layout_marginStart="60dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginEnd="420dp"
+        android:layout_marginRight="420dp"
+        android:layout_marginBottom="14dp"
         android:onClick="startTasks"
+        android:text="Start Tasks"
         android:textColor="@color/White"
-        app:layout_constraintBottom_toTopOf="@+id/listView"
+        app:layout_constraintBottom_toTopOf="@+id/currentTask"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/resetTasks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="39dp"
+        android:layout_marginLeft="39dp"
+        android:layout_marginEnd="261dp"
+        android:layout_marginRight="261dp"
+        android:layout_marginBottom="14dp"
+        android:text=" reset tasks"
+        android:onClick="resetTasks"
+        app:layout_constraintBottom_toTopOf="@+id/currentTask"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/startTasks" />
 
 </android.support.constraint.ConstraintLayout>

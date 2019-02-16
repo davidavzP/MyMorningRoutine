@@ -55,6 +55,34 @@
         android:hint="Seconds"
         android:inputType="number" />
 
+    <NumberPicker
+        android:id="@+id/hoursPicker"
+        android:layout_width="147dp"
+        android:layout_height="210dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="140dp" />
+
+    <NumberPicker
+        android:id="@+id/minutesPicker"
+        android:layout_width="147dp"
+        android:layout_height="210dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="140dp"/>
+
+    <NumberPicker
+        android:id="@+id/secondsPicker"
+        android:layout_width="147dp"
+        android:layout_height="210dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="140dp"
+        android:layout_marginRight="16dp" />
 
 
 </RelativeLayout>

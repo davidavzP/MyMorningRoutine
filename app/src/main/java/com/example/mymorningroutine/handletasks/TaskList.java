@@ -1,7 +1,5 @@
 package com.example.mymorningroutine.handletasks;
 
-import android.util.Log;
-
 import com.example.mymorningroutine.inputoutput.Singleton;
 
 import java.io.File;
@@ -9,7 +7,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class TaskList {
+public class TaskList{
 
     private static final String TAG = "TASKLIST";
     private HashMap<Task, File> alltaskFiles;
@@ -62,6 +60,9 @@ public class TaskList {
         alltaskFiles.put(task, new File(task.getFileName()));
     }
 
+    public void removeTask(Task task){
+        allTasks.remove(task);
+    }
 
 
 
