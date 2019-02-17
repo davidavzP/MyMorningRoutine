@@ -6,7 +6,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -22,6 +21,7 @@ import com.example.mymorningroutine.handletasks.CustomListViewAdapter;
 import com.example.mymorningroutine.handletasks.Task;
 import com.example.mymorningroutine.handletasks.TaskHandler;
 import com.example.mymorningroutine.handletasks.TaskList;
+import com.example.mymorningroutine.handletasks.TaskTimer;
 import com.example.mymorningroutine.inputoutput.Singleton;
 import com.example.mymorningroutine.popupeditmenu.Popup_editTask;
 import com.example.mymorningroutine.popupeditmenu.Popup_myWeek;
@@ -31,6 +31,9 @@ import com.example.mymorningroutine.popupeditmenu.Popup_newTask;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 
 public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener,
@@ -54,16 +57,22 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setUpItems();
+        setUpDisplayItems();
 
+    }
+    private void setUpItems(){
         setUpSingleton();
-
         setDeadlineTexts();
-
         setUpHandler();
-
         createlistView();
+    }
 
+    private void setUpDisplayItems(){
         setUpResetButton();
+        findCurrentTaskInfo();
+        handleEmptyTaskList();
+        setCurrentDateStatus();
     }
 
     private void setUpSingleton(){
@@ -72,12 +81,10 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         spoint = createSingleton();
     }
 
-
     private void setUpResetButton(){
         resetTask = findViewById(R.id.resetTasks);
         resetTask.setVisibility(View.INVISIBLE);
     }
-
 
     public Singleton createSingleton(){
         filedir = getFilesDir();
@@ -101,8 +108,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         taskHandler.getContext(this);
     }
 
-
-
     private void setDeadlineTexts() {
         findDeadlineTexts();
         try {
@@ -116,13 +121,13 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     private void findDeadlineTexts(){
         textDeadline = findViewById(R.id.textDeadline);
-        timeText = findViewById(R.id.textTime);
+        //timeText = findViewById(R.id.textTime);
     }
 
     private void fillDeadlineTexts() throws FileNotFoundException{
         textDeadline.setText(spoint.getDeadline().getDeadline());
-        String time = spoint.getDeadline().getHours() + ": " + spoint.getDeadline().getMinutes();
-        timeText.setText(time);
+        //String time = spoint.getDeadline().getHours() + ": " + spoint.getDeadline().getMinutes();
+        //timeText.setText(time);
     }
 
     private void createlistView() {
@@ -160,7 +165,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         });
     }
 
-    //method call exits in the xml file
     public void showPopup(View view){
         PopupMenu popupMenu = new PopupMenu(this, view);
         popupMenu.setOnMenuItemClickListener(this);
@@ -171,7 +175,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     private void openPopUpNewTask(){
         Popup_newTask newTask = new Popup_newTask();
         newTask.show(getSupportFragmentManager(), "newTask");
-
     }
 
     private void openPopUpMyWeek(){
@@ -183,8 +186,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         Popup_newDeadline newDeadline = new Popup_newDeadline();
         newDeadline.show(getSupportFragmentManager(), "newDeadline");
     }
-
-
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
@@ -207,49 +208,21 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     @Override
     public void applyDeadline(Deadline deadline) {
-        //TODO: clean
         try {
             spoint.setDeadline(deadline);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Log.d(TAG, deadline.getDeadline());
         textDeadline.setText(deadline.getDeadline());
-        String hours = lessThanTen(deadline.getHours());
-        String minutes = lessThanTen(deadline.getMinutes());
-        String time =  hours + ": " + minutes;
-        deadline.setHour(hours);
-        deadline.setMinutes(minutes);
-        timeText.setText(time);
-
-
-    }
-
-    public String lessThanTen(String num){
-        //TODO: delete this
-        if(FixbugFor24(num)){return num = "24";};
-        int num_int = Integer.valueOf(num);
-        if(num_int < 10){
-            return num = "0" + num;
-        }else{
-            return num;
-        }
-    }
-
-    public boolean FixbugFor24(String num){
-        //TODO: delete this
-        if(num.equals("0") || num.equals("00")){
-            return true;
-        }
-        return false;
     }
 
     @Override
     public void applyTasks(String newTask, String hours, String minutes, String seconds) {
-
-        //TODO: clean
         Task task = new Task(newTask, hours, minutes, seconds);
        checkTaskProperties(task);
+       handleEmptyTaskList();
+       setCurrentDateStatus();
+
 
 
     }
@@ -257,6 +230,9 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     private void checkTaskProperties(Task task){
         if(spoint.isExistingTask(task)){
             Toast.makeText(this, "That is Already a Task!", Toast.LENGTH_SHORT).show();
+        }else if (task.getTaskHours().equals("0") && task.getTaskMinutes().equals("0")
+        && task.getTaskSeconds().equals("0")){
+            Toast.makeText(this, "You must have a time more than 0 seconds", Toast.LENGTH_SHORT).show();
         }else {
             taskHandler.pushtoQueue(task);
             writeTask(task);
@@ -287,9 +263,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         } catch (IOException e) {
             e.printStackTrace();
         }
+        setCurrentDateStatus();
     }
-
-
 
     //method call exists in the xml file
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -303,22 +278,40 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             }else{
                 Toast.makeText(MainActivity.this, "There are no tasks to do", Toast.LENGTH_SHORT).show();
             }
-
     }
 
     @Override
-    public void applyTexts(Task task) {
+    public void deleteTask(Task task) {
         if(taskHandler.isCompleted()){
             spoint.deleteTask(task);
             task_List.removeTask(task);
             adapter.notifyDataSetChanged();
+            handleEmptyTaskList();
+            setCurrentDateStatus();
+
         }else {
             Toast.makeText(MainActivity.this, "You cannot delete tasks as they are running", Toast.LENGTH_SHORT).show();
         }
     }
 
+    private void handleEmptyTaskList(){
+        if(task_List.getAllTasks().isEmpty()) {
+            currentTask.setText("No Current Tasks");
+            currentTime.setText("00:00");
+        }else{
+           Task task = task_List.getAllTasks().get(0);
+           currentTask.setText(task.getTaskName());
+           showTaskStartTime(task);
+        }
+    }
+
+    private void showTaskStartTime(Task task){
+        TaskTimer timer = new TaskTimer(task, currentTime);
+        timer.showStartTime();
+    }
+
     private void displayCurrentTask(){
-        findCurrentTaskInfo();
+        //findCurrentTaskInfo();
         setTaskHandlerView();
     }
 
@@ -342,6 +335,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         }
 
     }
+
     public void resetTasks(View view) {
 
         taskHandler.stopAlert();
@@ -359,7 +353,34 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     }
 
 
+    private void setCurrentDateStatus(){
 
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE", Locale.US);
+        String dayofWeek= dayFormat.format(calendar.getTime());
+        boolean isDay = false;
+        try {
+            isDay = spoint.getWeek().shouldTaskBeDone(dayofWeek);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        displayScheduleStatus(isDay);
 
+    }
+
+    private void displayScheduleStatus(boolean isDay){
+        if(!isDay || task_List.getAllTasks().isEmpty()){
+            setTextViewDate("THERE NO ARE TASKS TO BE DONE TODAY");
+
+        }else{
+            setTextViewDate("THERE ARE TASKS TO BE DONE TODAY");
+
+        }
+    }
+
+    private void setTextViewDate(String text){
+        TextView textViewDate = findViewById(R.id.calendar_date);
+        textViewDate.setText(text);
+    }
 
 }

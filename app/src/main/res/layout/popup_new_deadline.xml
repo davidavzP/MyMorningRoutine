@@ -14,16 +14,4 @@
         android:hint="New Deadline" />
 
 
-    <TimePicker
-        android:id="@+id/timePicker"
-        android:timePickerMode="spinner"
-        android:backgroundTintMode="multiply"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/edit_newDeadline"
-        android:layout_alignLeft="@+id/edit_newDeadline"
-        android:layout_marginTop="66dp"
-        ></TimePicker>
-
-
 </RelativeLayout>

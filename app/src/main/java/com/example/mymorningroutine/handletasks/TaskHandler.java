@@ -93,8 +93,7 @@ public class TaskHandler extends MainActivity {
 
 
     private void runNextTask(){
-        //TODO: really needs a good clean
-        Log.d(TAG, "DONE WITH TIMER");
+
         if(taskQueue.len() != 0){
             startNewTask();
         }else {
@@ -129,7 +128,7 @@ public class TaskHandler extends MainActivity {
 
     private void showDonewithTasks(){
         currentTask.setRunning(false);
-        String done = "DONE WITH ALL TASKS";
+        String done = "DONE";
         taskView.setText(done);
     }
 
@@ -167,6 +166,10 @@ public class TaskHandler extends MainActivity {
     private void showcurrentTaskTime(){
         currentTimer = new TaskTimer(currentTask, taskTimeView);
         taskView.setText(taskQueue.peek().getTaskName());
+    }
+
+    public Task peekQueue(){
+        return taskQueue.peek();
     }
 
 

@@ -24,10 +24,6 @@ import java.io.IOException;
 public class Popup_newTask extends DialogFragment {
     private static String TAG = "POPUPNEWTASK";
     private EditText newTaskname;
-    private EditText newTasktime;
-    private EditText textSeconds;
-    private EditText textMinutes;
-    private EditText textHours;
     private DialogListener listener;
     private NumberPicker hoursPicker;
     private NumberPicker minutesPicker;
@@ -55,11 +51,6 @@ public class Popup_newTask extends DialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         String newTask = newTaskname.getText().toString();
 
-                        /*
-                        String hours = textHours.getText().toString();
-                        String minutes = textMinutes.getText().toString();
-                        String seconds = textSeconds.getText().toString();
-                        */
 
                         String hours = String.valueOf(hoursPicker.getValue());
                         String minutes = String.valueOf(minutesPicker.getValue());
@@ -78,14 +69,10 @@ public class Popup_newTask extends DialogFragment {
                 });
 
         newTaskname = view.findViewById(R.id.edit_newTask);
-        textSeconds = view.findViewById(R.id.edit_Seconds);
-        textMinutes = view.findViewById(R.id.edit_Minutes);
-        textHours = view.findViewById(R.id.edit_Hours);
 
 
         hoursPicker = setPicker(view, hoursPicker, R.id.hoursPicker);
         minutesPicker = setPicker(view, minutesPicker, R.id.minutesPicker);
-
         secondsPicker = setPicker(view, secondsPicker, R.id.secondsPicker);
 
         return builder.create();

@@ -58,7 +58,7 @@ public class Popup_newDeadline extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        int[] hoursandminutes = versionControl();
+                        //int[] hoursandminutes = versionControl();
 
                         if(textDeadline.getText().length() == 0){
                             Toast.makeText(getContext(), "Deadline Name can't be empty", Toast.LENGTH_SHORT).show();
@@ -78,7 +78,7 @@ public class Popup_newDeadline extends DialogFragment {
                 });
 
         textDeadline = view.findViewById(R.id.edit_newDeadline);
-        timePicker = view.findViewById(R.id.timePicker);
+        //timePicker = view.findViewById(R.id.timePicker);
 
 
 

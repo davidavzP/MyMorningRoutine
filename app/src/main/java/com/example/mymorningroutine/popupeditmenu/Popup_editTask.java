@@ -44,7 +44,7 @@ public class Popup_editTask extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
-                        listener.applyTexts(task);
+                        listener.deleteTask(task);
                     }
                 });
         textTask = view.findViewById(R.id.textTask);
@@ -66,6 +66,6 @@ public class Popup_editTask extends DialogFragment {
     }
 
     public interface DialogListener {
-        void applyTexts(Task task);
+        void deleteTask(Task task);
     }
 }

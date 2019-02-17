@@ -8,14 +8,17 @@
 
     <TextView
         android:id="@+id/textDeadline"
-        android:layout_width="229dp"
-        android:layout_height="52dp"
+        android:layout_width="444dp"
+        android:layout_height="65dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="32dp"
+        android:background="@android:drawable/gallery_thumb"
         android:text="@string/textview"
+        android:textAllCaps="false"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="30sp"
+        android:textStyle="bold|italic"
         android:typeface="normal"
         android:visibility="visible"
         app:fontFamily="sans-serif-black"
@@ -25,14 +28,15 @@
 
     <ListView
         android:id="@+id/listView"
-        style="@style/Base.Widget.AppCompat.ListView.Menu"
+        style="@android:style/Widget.Holo.ListView.DropDown"
         android:layout_width="584dp"
-        android:layout_height="600dp"
+        android:layout_height="602dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="175dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:background="@android:drawable/gallery_thumb"
         android:fadeScrollbars="false"
         android:fadingEdge="vertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -40,83 +44,48 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textDeadline" />
 
-    <TextView
-        android:id="@+id/textTime"
-        android:layout_width="148dp"
-        android:layout_height="31dp"
-        android:layout_marginStart="85dp"
-        android:layout_marginLeft="85dp"
-        android:layout_marginTop="52dp"
-        android:text="@string/texttime"
-        android:textAllCaps="true"
-        android:textColor="@color/Red"
-        android:textSize="18sp"
-        android:textStyle="bold|italic"
-        android:typeface="serif"
-        app:fontFamily="sans-serif-smallcaps"
-        app:layout_constraintStart_toEndOf="@+id/textDeadline"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Time Remaining" />
-
     <Button
         android:id="@+id/nav_Menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="34dp"
+        android:layout_marginRight="34dp"
         android:layout_marginBottom="179dp"
         android:onClick="showPopup"
         android:text="EDIT"
         app:layout_constraintBottom_toTopOf="@+id/listView"
-        app:layout_constraintStart_toEndOf="@+id/textTime" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="45dp"
-        android:layout_marginLeft="45dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="126dp"
-        android:layout_marginRight="126dp"
-        android:text="Time:"
-        android:textColor="@color/Black"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/nav_Menu"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/textDeadline"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/currentTask"
-        android:layout_width="158dp"
-        android:layout_height="55dp"
-        android:layout_marginStart="72dp"
-        android:layout_marginLeft="72dp"
-        android:layout_marginTop="89dp"
-        android:layout_marginBottom="68dp"
-        android:text="Current Task"
+        android:layout_width="351dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="92dp"
+        android:background="@android:drawable/gallery_thumb"
+        android:text="No Current Tasks"
         android:textColor="@color/Black"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/listView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textDeadline"
-        app:layout_constraintVertical_bias="0.729" />
+        app:layout_constraintTop_toBottomOf="@+id/textDeadline" />
 
     <TextView
         android:id="@+id/currentTime"
-        android:layout_width="103dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="63dp"
-        android:layout_marginEnd="78dp"
-        android:layout_marginRight="78dp"
-        android:layout_marginBottom="78dp"
+        android:layout_width="115dp"
+        android:layout_height="55dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginBottom="28dp"
+        android:background="@android:drawable/gallery_thumb"
         android:text="00:00"
         android:textColor="@color/Red"
-        android:textSize="18sp"
+        android:textSize="24sp"
         app:fontFamily="cursive"
         app:layout_constraintBottom_toTopOf="@+id/listView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textTime"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/startTasks"
@@ -126,7 +95,7 @@
         android:layout_marginLeft="60dp"
         android:layout_marginEnd="420dp"
         android:layout_marginRight="420dp"
-        android:layout_marginBottom="14dp"
+        android:layout_marginBottom="41dp"
         android:onClick="startTasks"
         android:text="Start Tasks"
         android:textColor="@color/White"
@@ -142,11 +111,59 @@
         android:layout_marginLeft="39dp"
         android:layout_marginEnd="261dp"
         android:layout_marginRight="261dp"
-        android:layout_marginBottom="14dp"
-        android:text=" reset tasks"
+        android:layout_marginBottom="41dp"
         android:onClick="resetTasks"
+        android:text=" reset tasks"
         app:layout_constraintBottom_toTopOf="@+id/currentTask"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/startTasks" />
+
+    <TextView
+        android:id="@+id/label_currentTask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="39dp"
+        android:layout_marginLeft="39dp"
+        android:layout_marginEnd="499dp"
+        android:layout_marginRight="499dp"
+        android:layout_marginBottom="4dp"
+        android:text="Current Task"
+        android:textColor="@color/Blue"
+        app:layout_constraintBottom_toTopOf="@+id/currentTask"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/label_currentTime"
+        android:layout_width="70dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="350dp"
+        android:layout_marginLeft="350dp"
+        android:layout_marginEnd="68dp"
+        android:layout_marginRight="68dp"
+        android:layout_marginBottom="4dp"
+        android:text="Time Left"
+        android:textColor="@color/Blue"
+        app:layout_constraintBottom_toTopOf="@+id/currentTime"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/label_currentTask" />
+
+    <TextView
+        android:id="@+id/calendar_date"
+        android:layout_width="241dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginLeft="36dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="30dp"
+        android:textColor="@color/Maroon"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/label_currentTime"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/resetTasks" />
+
 
 </android.support.constraint.ConstraintLayout>

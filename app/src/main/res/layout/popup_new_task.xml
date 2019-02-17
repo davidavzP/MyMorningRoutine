@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:padding="16dp">
@@ -14,46 +15,6 @@
         android:layout_marginLeft="0dp"
         android:hint="New Task" />
 
-
-    <EditText
-        android:id="@+id/edit_Hours"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/edit_newTask"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="66dp"
-        android:hint="Hours"
-        android:inputType="number"
-        android:layout_alignLeft="@+id/edit_newTask" />
-
-    <EditText
-        android:id="@+id/edit_Minutes"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/edit_newTask"
-        android:layout_alignLeft="@+id/edit_newTask"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="211dp"
-        android:layout_marginLeft="211dp"
-        android:layout_marginTop="66dp"
-        android:hint="Minute"
-        android:inputType="number" />
-
-    <EditText
-        android:id="@+id/edit_Seconds"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/edit_newTask"
-        android:layout_alignLeft="@+id/edit_newTask"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="408dp"
-        android:layout_marginLeft="408dp"
-        android:layout_marginTop="66dp"
-        android:hint="Seconds"
-        android:inputType="number" />
 
     <NumberPicker
         android:id="@+id/hoursPicker"
@@ -83,6 +44,54 @@
         android:layout_alignParentRight="true"
         android:layout_marginTop="140dp"
         android:layout_marginRight="16dp" />
+
+    <TextView
+        android:id="@+id/label_hours"
+        android:layout_width="99dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="42dp"
+        android:layout_marginLeft="43dp"
+        android:layout_marginTop="82dp"
+        android:text="Hours"
+        android:textColor="@color/Black"
+        android:textSize="30sp"
+        android:textStyle="italic"
+        app:fontFamily="sans-serif-light" />
+
+    <TextView
+        android:id="@+id/label_minutes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="205dp"
+        android:layout_marginLeft="230dp"
+        android:layout_marginTop="82dp"
+        android:text="Minutes"
+        android:textColor="@color/Black"
+        android:textSize="30sp"
+        android:textStyle="italic"
+        app:fontFamily="sans-serif-light" />
+
+    <TextView
+        android:id="@+id/label_seconds"
+        android:layout_width="149dp"
+        android:layout_height="61dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="387dp"
+        android:layout_marginLeft="404dp"
+        android:layout_marginTop="82dp"
+        android:text="Seconds"
+        android:textColor="@color/Black"
+        android:textSize="30sp"
+        android:textStyle="italic"
+        app:fontFamily="sans-serif-light" />
 
 
 </RelativeLayout>

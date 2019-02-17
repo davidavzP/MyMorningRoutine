@@ -1,6 +1,7 @@
 package com.example.mymorningroutine.handleobjects;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class TheWeek {
     private boolean monday;
@@ -10,10 +11,11 @@ public class TheWeek {
     private boolean friday;
     private boolean saturday;
     private boolean sunday;
+    private ArrayList<String> week;
 
 
     public TheWeek parseWeek(ArrayList<String> week){
-
+        this.week = week;
         monday = setDay(week.get(0));
         tuesday = setDay(week.get(1));
         wednesday = setDay(week.get(2));
@@ -62,6 +64,16 @@ public class TheWeek {
         }
 
         return false;
+    }
+
+    public boolean shouldTaskBeDone(String day){
+        for (String i: week){
+            if(i.contains(day) && i.endsWith("true")){
+                return true;
+            }
+        }
+        return false;
+
     }
 
     public boolean isMonday() {
@@ -119,5 +131,6 @@ public class TheWeek {
     public void setSunday(boolean sunday) {
         this.sunday = sunday;
     }
+
 }
 

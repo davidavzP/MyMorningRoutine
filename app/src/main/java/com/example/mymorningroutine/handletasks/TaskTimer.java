@@ -104,8 +104,6 @@ public class TaskTimer {
                 mTimerRunning = false;
                 TextViewCountDown.setText("DONE");
                 TaskHandler.get().timeforNextTask();
-
-
             }
         }.start();
 
