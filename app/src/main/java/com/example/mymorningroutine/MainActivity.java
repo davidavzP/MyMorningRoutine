@@ -368,10 +368,12 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     }
 
-    private void displayScheduleStatus(boolean isDay){
-        if(!isDay || task_List.getAllTasks().isEmpty()){
-            setTextViewDate("THERE NO ARE TASKS TO BE DONE TODAY");
+    private void displayScheduleStatus(boolean isDay) {
+        if (!isDay) {
+            setTextViewDate("THERE ARE NO TASKS TO BE DONE TODAY");
 
+        }else if (task_List.getAllTasks().isEmpty()){
+            setTextViewDate("THERE ARE NO TASKS IN THE LIST");
         }else{
             setTextViewDate("THERE ARE TASKS TO BE DONE TODAY");
 

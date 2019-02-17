@@ -98,7 +98,7 @@
         android:layout_marginBottom="41dp"
         android:onClick="startTasks"
         android:text="Start Tasks"
-        android:textColor="@color/White"
+        android:textColor="@color/Red"
         app:layout_constraintBottom_toTopOf="@+id/currentTask"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
