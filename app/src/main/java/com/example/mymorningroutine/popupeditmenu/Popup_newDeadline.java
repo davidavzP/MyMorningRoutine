@@ -63,10 +63,12 @@ public class Popup_newDeadline extends DialogFragment {
                         if(textDeadline.getText().length() == 0){
                             Toast.makeText(getContext(), "Deadline Name can't be empty", Toast.LENGTH_SHORT).show();
                             deadline.setDeadline(deadline.getDeadline());
-                            deadline.setHour(deadline.getHours());
-                            deadline.setMinutes(deadline.getMinutes());
+                            //deadline.setHour(deadline.getHours());
+                            //deadline.setMinutes(deadline.getMinutes());
                             return;
                         }else {
+                            deadline.setDeadline(textDeadline.getText().toString());
+
                             listener.applyDeadline(deadline);
                         }
 

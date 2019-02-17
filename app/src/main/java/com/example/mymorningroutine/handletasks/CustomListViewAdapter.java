@@ -18,7 +18,7 @@ import java.util.List;
 public class CustomListViewAdapter extends ArrayAdapter<Task> {
 
     private static final String TAG = "CUSTOMLISTVIEWADAPTER";
-    private final List<Task> objects;
+
     private Context mContext;
     private int mResource;
 
@@ -27,7 +27,7 @@ public class CustomListViewAdapter extends ArrayAdapter<Task> {
         super(context, resource, objects);
         this.mContext = context;
         this.mResource =resource;
-        this.objects = objects;
+
     }
 
 
@@ -44,18 +44,12 @@ public class CustomListViewAdapter extends ArrayAdapter<Task> {
         String taskminutes = getItem(position).getTaskMinutes();
         String taskseconds = getItem(position).getTaskSeconds();
 
-        Singleton spoint = Singleton.get();
-
-
-        Task task = new Task(taskname, taskhours, taskminutes, taskseconds);
 
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource, parent, false);
 
         ViewHolder viewHolder = new ViewHolder();
-
-
 
         TextView taskName = convertView.findViewById(R.id.userTaskname);
         TextView taskTime = convertView.findViewById(R.id.userTime);
@@ -70,8 +64,8 @@ public class CustomListViewAdapter extends ArrayAdapter<Task> {
         taskTime.setText(time);
 
 
-
         return convertView;
     }
+
 
 }

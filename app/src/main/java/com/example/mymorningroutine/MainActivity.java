@@ -54,9 +54,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        createSingleton();
 
-        spoint = createSingleton();
+        setUpSingleton();
 
         setDeadlineTexts();
 
@@ -65,12 +64,16 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         createlistView();
 
         setUpResetButton();
+    }
 
+    private void setUpSingleton(){
+        createSingleton();
 
+        spoint = createSingleton();
     }
 
 
-    public void setUpResetButton(){
+    private void setUpResetButton(){
         resetTask = findViewById(R.id.resetTasks);
         resetTask.setVisibility(View.INVISIBLE);
     }
@@ -88,21 +91,22 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     }
 
     private void setUpHandler(){
-        //TODO: clean
         taskHandler = TaskHandler.get();
+        createHandler();
+    }
+
+    private void createHandler(){
         startTasks = findViewById(R.id.startTasks);
         taskHandler.setButton(startTasks);
         taskHandler.getContext(this);
     }
 
+
+
     private void setDeadlineTexts() {
-        //TODO: clean
-        textDeadline = findViewById(R.id.textDeadline);
-        timeText = findViewById(R.id.textTime);
+        findDeadlineTexts();
         try {
-            textDeadline.setText(spoint.getDeadline().getDeadline());
-            String time = spoint.getDeadline().getHours() + ": " + spoint.getDeadline().getMinutes();
-            timeText.setText(time);
+            fillDeadlineTexts();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -110,37 +114,50 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     }
 
+    private void findDeadlineTexts(){
+        textDeadline = findViewById(R.id.textDeadline);
+        timeText = findViewById(R.id.textTime);
+    }
+
+    private void fillDeadlineTexts() throws FileNotFoundException{
+        textDeadline.setText(spoint.getDeadline().getDeadline());
+        String time = spoint.getDeadline().getHours() + ": " + spoint.getDeadline().getMinutes();
+        timeText.setText(time);
+    }
+
     private void createlistView() {
         //TODO: clean
         try {
-
             task_List = new TaskList(spoint.getTaskdir());
-
             taskHandler.populateQueue(task_List.getAllTasks());
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        createlistViewAdapter();
+        createOnClicklistView();
+
+
+    }
+
+    private void createlistViewAdapter(){
         listView = findViewById(R.id.listView);
 
-        adapter = new
-                CustomListViewAdapter(this,
+        adapter = new CustomListViewAdapter(this,
                 R.layout.list_view_tasks, task_List.getAllTasks());
 
         listView.setAdapter(adapter);
+    }
 
+    private void createOnClicklistView(){
         listView.setClickable(true);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //Toast.makeText(MainActivity.this, task_List.getAllTasks().get(position).getTaskName() ,Toast.LENGTH_SHORT).show();
                 Popup_editTask edit_task = new Popup_editTask(task_List.getAllTasks().get(position));
                 edit_task.show(getSupportFragmentManager(), "editTask");
-
             }
         });
-
     }
 
     //method call exits in the xml file
@@ -196,6 +213,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         } catch (IOException e) {
             e.printStackTrace();
         }
+        Log.d(TAG, deadline.getDeadline());
         textDeadline.setText(deadline.getDeadline());
         String hours = lessThanTen(deadline.getHours());
         String minutes = lessThanTen(deadline.getMinutes());
@@ -231,27 +249,35 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
         //TODO: clean
         Task task = new Task(newTask, hours, minutes, seconds);
-        Log.d(TAG, String.valueOf(spoint.isExistingTask(task)));
+       checkTaskProperties(task);
+
+
+    }
+
+    private void checkTaskProperties(Task task){
         if(spoint.isExistingTask(task)){
             Toast.makeText(this, "That is Already a Task!", Toast.LENGTH_SHORT).show();
         }else {
-
             taskHandler.pushtoQueue(task);
-            try {
-
-                spoint.writeTask(task);
-
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            try {
-                task_List.addTask(spoint.readTask(task.getFileName()));
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
+            writeTask(task);
+            putToTaskList(task);
         }
+    }
 
+    private void writeTask(Task task){
+        try {
+            spoint.writeTask(task);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void putToTaskList(Task task){
+        try {
+            task_List.addTask(spoint.readTask(task.getFileName()));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -269,40 +295,16 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void startTasks(View view) {
         //TODO: clean
-            if(task_List.getAllTasks().size() > 0){
-                resetTask.setVisibility(View.VISIBLE);
-                startTasks.setVisibility(View.INVISIBLE);
+            if(task_List.getAllTasks().size() > 0) {
+                setButtonVisiability(true);
                 taskHandler.populateQueue(task_List.getAllTasks());
-
-                currentTask = findViewById(R.id.currentTask);
-                currentTime = findViewById(R.id.currentTime);
-                taskHandler.setTaskView(currentTask);
-                taskHandler.setTaskTimeView(currentTime);
+                displayCurrentTask();
                 taskHandler.startAllTasks();
-
+            }else{
+                Toast.makeText(MainActivity.this, "There are no tasks to do", Toast.LENGTH_SHORT).show();
             }
 
-
-
     }
-
-    public void resetTasks(View view) {
-        //TODO: clean
-        taskHandler.stopAlert();
-        if(task_List.getAllTasks().size() > 0){
-            taskHandler.resetTasks();
-            taskHandler.populateQueue(task_List.getAllTasks());
-            taskHandler.resetDisplay();
-            startTasks.setVisibility(View.VISIBLE);
-            resetTask.setVisibility(View.INVISIBLE);
-        }else {
-            startTasks.setVisibility(View.VISIBLE);
-            resetTask.setVisibility(View.INVISIBLE);
-        }
-
-
-    }
-
 
     @Override
     public void applyTexts(Task task) {
@@ -314,6 +316,49 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             Toast.makeText(MainActivity.this, "You cannot delete tasks as they are running", Toast.LENGTH_SHORT).show();
         }
     }
+
+    private void displayCurrentTask(){
+        findCurrentTaskInfo();
+        setTaskHandlerView();
+    }
+
+    private void setTaskHandlerView(){
+        taskHandler.setTaskView(currentTask);
+        taskHandler.setTaskTimeView(currentTime);
+    }
+
+    private void findCurrentTaskInfo(){
+        currentTask = findViewById(R.id.currentTask);
+        currentTime = findViewById(R.id.currentTime);
+    }
+
+    private void setButtonVisiability(boolean bool){
+        if(bool){
+            startTasks.setVisibility(View.INVISIBLE);
+            resetTask.setVisibility(View.VISIBLE);
+        }else {
+            startTasks.setVisibility(View.VISIBLE);
+            resetTask.setVisibility(View.INVISIBLE);
+        }
+
+    }
+    public void resetTasks(View view) {
+
+        taskHandler.stopAlert();
+        if(task_List.getAllTasks().size() > 0){
+            resetTaskHandler();
+        }
+        setButtonVisiability(false);
+
+    }
+
+    private void resetTaskHandler(){
+        taskHandler.resetTasks();
+        taskHandler.populateQueue(task_List.getAllTasks());
+        taskHandler.resetDisplay();
+    }
+
+
 
 
 

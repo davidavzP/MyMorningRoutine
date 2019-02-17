@@ -1,12 +1,7 @@
 package com.example.mymorningroutine.handletasks;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
+
 import android.content.Context;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
-import android.net.Uri;
-import android.os.Build;
 import android.util.Log;
 
 import android.view.Gravity;
@@ -101,27 +96,53 @@ public class TaskHandler extends MainActivity {
         //TODO: really needs a good clean
         Log.d(TAG, "DONE WITH TIMER");
         if(taskQueue.len() != 0){
-            currentTask = taskQueue.peek();
-            currentTask.setRunning(true);
-            taskView.setText(currentTask.getTaskName());
-            currentTimer = new TaskTimer(currentTask, taskTimeView);
-            currentTimer.startTimer();
-            currentTask = taskQueue.pop();
+            startNewTask();
         }else {
-            currentTask.setRunning(false);
-            String done = "DONE WITH ALL TASKS";
-            taskView.setText(done);
-            completedTasks = true;
-            startTasks.setClickable(true);
-            playSound.playSound();
-
-            Toast toast = Toast.makeText(mContext, "DONE WITH ALL TASKS", Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
-
-            toast.show();
+            endAllTasks();
         }
     }
 
+    private void endAllTasks(){
+        showDonewithTasks();
+        resetButton();
+        playSound.playSound();
+        displayToast();
+    }
+
+    private void startNewTask(){
+        getNextTask();
+        runTaskTimer();
+        currentTask = taskQueue.pop();
+    }
+
+    private void resetButton(){
+        completedTasks = true;
+        startTasks.setClickable(true);
+    }
+
+    private void displayToast(){
+        Toast toast = Toast.makeText(mContext, "DONE WITH ALL TASKS", Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
+
+        toast.show();
+    }
+
+    private void showDonewithTasks(){
+        currentTask.setRunning(false);
+        String done = "DONE WITH ALL TASKS";
+        taskView.setText(done);
+    }
+
+    private void getNextTask(){
+        currentTask = taskQueue.peek();
+        currentTask.setRunning(true);
+        taskView.setText(currentTask.getTaskName());
+    }
+
+    private void runTaskTimer(){
+        currentTimer = new TaskTimer(currentTask, taskTimeView);
+        currentTimer.startTimer();
+    }
     public boolean isCompleted(){
         return completedTasks;
     }
@@ -138,12 +159,14 @@ public class TaskHandler extends MainActivity {
 
     public void resetDisplay(){
         currentTask = taskQueue.peek();
-        currentTimer = new TaskTimer(currentTask, taskTimeView);
-        taskView.setText(taskQueue.peek().getTaskName());
+        showcurrentTaskTime();
         currentTimer.showStartTime();
 
+    }
 
-
+    private void showcurrentTaskTime(){
+        currentTimer = new TaskTimer(currentTask, taskTimeView);
+        taskView.setText(taskQueue.peek().getTaskName());
     }
 
 

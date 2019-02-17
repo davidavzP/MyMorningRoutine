@@ -31,11 +31,23 @@ public class Singleton {
     ///Only called once to set the file directory
     public void first_instance_getFiles(File dir) throws IOException {
         build_TaskList();
+        createDirectory(dir);
+        createWeekFile();
+        createDeadlineFile();
+    }
+
+    private void createDirectory(File dir){
         this.filedir = dir;
         fileHandlers.set_filedir(filedir, taskListFolder);
+    }
+
+    private void createWeekFile() throws IOException{
         if(!isFile("TheWeek.txt")){
             build_weekFile();
         }
+    }
+
+    private void createDeadlineFile() throws IOException{
         if(!isFile("Deadline.txt")){
             build_deadlineFile();
         }
