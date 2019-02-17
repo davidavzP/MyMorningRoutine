@@ -283,15 +283,19 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     @Override
     public void deleteTask(Task task) {
         if(taskHandler.isCompleted()){
-            spoint.deleteTask(task);
-            task_List.removeTask(task);
-            adapter.notifyDataSetChanged();
+            deleteTasks(task);
             handleEmptyTaskList();
             setCurrentDateStatus();
 
         }else {
             Toast.makeText(MainActivity.this, "You cannot delete tasks as they are running", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void deleteTasks(Task task){
+        spoint.deleteTask(task);
+        task_List.removeTask(task);
+        adapter.notifyDataSetChanged();
     }
 
     private void handleEmptyTaskList(){

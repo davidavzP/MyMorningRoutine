@@ -1,19 +1,13 @@
 package com.example.mymorningroutine.handletasks;
 
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.content.Context;
-import android.content.ContextWrapper;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.widget.TextView;
+
 import java.util.Locale;
 
 
 
-public class TaskTimer {
+public class TaskTimer{
     private static String TAG = "TASKTIMER";
     private long START_TIME_IN_MILLIS;
 

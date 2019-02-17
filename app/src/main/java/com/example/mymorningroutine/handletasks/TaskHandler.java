@@ -1,6 +1,7 @@
 package com.example.mymorningroutine.handletasks;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 
@@ -16,7 +17,7 @@ import com.example.mymorningroutine.inputoutput.PlaySound;
 
 import java.util.ArrayList;
 
-public class TaskHandler extends MainActivity {
+public class TaskHandler extends MainActivity  {
 
     private static String TAG = "TASKHANDLER";
     private static TaskHandler instance;
@@ -92,6 +93,7 @@ public class TaskHandler extends MainActivity {
     }
 
 
+    @SuppressLint("CommitTransaction")
     private void runNextTask(){
 
         if(taskQueue.len() != 0){
@@ -171,6 +173,7 @@ public class TaskHandler extends MainActivity {
     public Task peekQueue(){
         return taskQueue.peek();
     }
+
 
 
 }
